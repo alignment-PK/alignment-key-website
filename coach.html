@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coach Profile — Alignment Key</title>
+<meta name="description" content="Certified PathKEY coach profile — education, certifications, experience and areas of expertise." />
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --teal:#137780; --deep:#0E6E78; --gold:#DBB100; --ochre:#E0A81E;
+    --ink:#1E1E1E; --heading:#333333; --body:#777777; --muted:#949494;
+    --soft:#92C0C4; --bg:#F9F9F9; --panel:#F3F3F3; --border:#E3E3E1;
+    --white:#fff; --alert:#E01020;
+    --radius:14px; --radius-lg:22px; --pill:35px; --maxw:1160px;
+    --shadow:0 1px 2px rgba(30,30,30,.04),0 12px 40px rgba(19,119,128,.08);
+    --shadow-soft:0 1px 2px rgba(30,30,30,.03),0 6px 22px rgba(30,30,30,.05);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Rubik',Arial,Helvetica,sans-serif;background:var(--bg);color:var(--heading);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:17px;overflow-x:hidden}
+  h1,h2,h3,h4{color:var(--ink);font-weight:700;line-height:1.14;letter-spacing:-.01em}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  a{color:inherit;text-decoration:none}
+  .accent{color:var(--gold)}
+  .goldbar{position:fixed;top:0;left:0;width:100%;height:5px;background:linear-gradient(90deg,var(--gold),var(--ochre));z-index:100}
+  .eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.15em;font-size:12.5px;color:var(--teal)}
+
+  .btn{display:inline-flex;align-items:center;gap:.55rem;font-weight:600;font-size:15.5px;padding:14px 28px;border-radius:var(--pill);border:2px solid transparent;cursor:pointer;transition:all .22s ease;white-space:nowrap}
+  .btn-gold{background:var(--gold);color:#3a2e00}
+  .btn-gold:hover{background:#c9a200;transform:translateY(-2px);box-shadow:0 10px 24px rgba(219,177,0,.3)}
+  .btn-primary{background:var(--teal);color:#fff}
+  .btn-primary:hover{background:var(--deep);transform:translateY(-2px);box-shadow:0 10px 24px rgba(19,119,128,.25)}
+  .btn-out{background:transparent;color:var(--teal);border-color:var(--teal)}
+  .btn-out:hover{background:var(--teal);color:#fff;transform:translateY(-2px)}
+  .btn-light{background:#fff;color:var(--teal);border-color:var(--border)}
+  .btn-light:hover{border-color:var(--teal);transform:translateY(-2px)}
+  .arrow{transition:transform .22s ease}
+  .btn:hover .arrow{transform:translateX(3px)}
+
+  .logo{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:.13em;font-size:16px;color:var(--ink);text-transform:uppercase}
+  .logo svg{width:38px;height:29px;flex:0 0 38px}
+
+  header.nav{position:sticky;top:5px;z-index:50;background:rgba(249,249,249,.85);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+  header.nav.scrolled{border-color:var(--border);box-shadow:0 4px 20px rgba(30,30,30,.05)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .nav-links{display:flex;align-items:center;gap:22px}
+  .nav-links a{font-size:15px;color:var(--body);font-weight:500;transition:color .18s;white-space:nowrap}
+  .nav-links a:hover,.nav-links a.active{color:var(--ink)}
+  .nav-cta{display:flex;align-items:center;gap:12px}
+  .nav-cta .btn{padding:11px 22px;font-size:14.5px}
+  @media(max-width:940px){.nav-links{display:none}.nav-cta .btn-out{display:none}}
+  .nav-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:4px;width:28px;height:28px;padding:0;margin:0;background:none;border:none;cursor:pointer;flex-shrink:0}
+  .nav-toggle span{display:block;width:20px;height:2px;background:var(--ink,#12313a);border-radius:2px;transition:transform .25s,opacity .2s,width .2s}
+  #nav.nav-open .nav-toggle span:nth-child(1){transform:translateY(6px) rotate(45deg);width:20px}
+  #nav.nav-open .nav-toggle span:nth-child(2){opacity:0}
+  #nav.nav-open .nav-toggle span:nth-child(3){transform:translateY(-6px) rotate(-45deg);width:20px}
+  @media(max-width:940px){
+    #nav{position:relative}
+    .nav-toggle{display:flex}
+    .nav-inner{padding-left:16px;padding-right:16px}
+    .nav-cta{gap:8px}
+    .nav-cta .btn{white-space:nowrap}
+    #nav.nav-open .nav-links{display:flex;flex-direction:column;align-items:stretch;gap:2px;position:absolute;top:100%;left:0;right:0;background:#fff;padding:14px 16px 20px;box-shadow:0 16px 40px rgba(19,119,128,.16);max-height:calc(100vh - 74px);overflow-y:auto;border-top:1px solid var(--border)}
+    #nav.nav-open .has-drop{width:100%}
+    #nav.nav-open .has-drop>a{display:flex;justify-content:space-between;align-items:center;padding:13px 6px;border-radius:9px;width:100%}
+    #nav.nav-open .has-drop>a:active{background:#f3f7f7}
+    #nav.nav-open .drop{position:static;opacity:1;visibility:hidden;max-height:0;overflow:hidden;transform:none;box-shadow:none;border:none;padding:0 0 0 14px;min-width:0;transition:max-height .25s ease}
+    #nav.nav-open .has-drop.open .drop{visibility:visible;max-height:420px;padding:4px 0 10px 14px}
+    #nav.nav-open .has-drop.open>a .car{transform:rotate(180deg)}
+  }
+  @media(max-width:400px){
+    .nav-inner .logo-img{height:28px}
+    .nav-cta .btn{padding:7px 11px;font-size:12px}
+    .nav-toggle{width:26px;height:26px}
+  }
+
+  .crumb{font-size:13.5px;color:var(--muted);padding:20px 0 0}
+  .crumb a{color:var(--teal);font-weight:500}
+  .crumb span{margin:0 8px;color:var(--border)}
+
+  /* profile layout */
+  .profile{padding:34px 0 20px}
+  .p-grid{display:grid;grid-template-columns:340px 1fr;gap:44px;align-items:start}
+  @media(max-width:860px){.p-grid{grid-template-columns:1fr;gap:30px}}
+
+  .p-side{position:sticky;top:96px}
+  @media(max-width:860px){.p-side{position:static}}
+  .p-photo{aspect-ratio:1/1;border-radius:var(--radius-lg);overflow:hidden;background:var(--panel);border:1px solid var(--border);box-shadow:var(--shadow-soft)}
+  .p-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .p-photo .ini{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,#E8F1F1,#F3F3F3 55%,#EFE9CE);color:var(--teal);font-size:74px;font-weight:600;letter-spacing:.04em}
+  .p-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .p-links a{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;color:var(--teal);background:var(--white);border:1px solid var(--border);border-radius:100px;padding:7px 14px;text-decoration:none;transition:border-color .2s,background .2s}
+  .p-links a:hover{border-color:var(--teal);background:#F1F7F7}
+  .p-links svg{flex:none}
+  .p-side .meta{margin-top:22px;display:grid;gap:14px}
+  .p-side .mrow{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--heading)}
+  .p-side .mrow .ic{flex:0 0 34px;width:34px;height:34px;border-radius:9px;background:rgba(19,119,128,.09);color:var(--teal);display:flex;align-items:center;justify-content:center}
+  .p-side .mrow .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+  .p-side .mrow .v{font-weight:500;color:var(--ink)}
+  .p-side .cta{margin-top:24px;display:grid;gap:12px}
+  .p-side .cta .btn{width:100%;justify-content:center}
+
+  .p-name{font-size:clamp(30px,4.4vw,46px)}
+  .p-role{color:var(--teal);font-weight:600;font-size:18px;margin-top:6px}
+  .p-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .tag{font-size:12.5px;font-weight:500;color:var(--deep);background:rgba(19,119,128,.08);border:1px solid rgba(19,119,128,.16);padding:5px 13px;border-radius:100px}
+  .p-bio{color:var(--body);font-size:17.5px;margin-top:26px;max-width:640px}
+
+  .p-block{margin-top:38px}
+  .p-block h3{font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:18px}
+  .p-list{display:grid;gap:12px}
+  .p-list .li{display:flex;gap:13px;align-items:flex-start;font-size:16px;color:var(--heading)}
+  .p-list .li .dot{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:rgba(19,119,128,.1);color:var(--teal);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-top:2px}
+
+  .dummy-note{font-size:12.5px;color:var(--muted);background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-top:34px}
+
+  /* related */
+  .rel-sec{background:var(--white);border-top:1px solid var(--border);padding:70px 0}
+  .rel-head{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:12px;margin-bottom:26px}
+  .rel-head h2{font-size:clamp(24px,3vw,32px)}
+  .rel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  @media(max-width:900px){.rel-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:460px){.rel-grid{grid-template-columns:1fr}}
+  .ccard{display:block;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:transform .25s,box-shadow .25s,border-color .25s}
+  .ccard:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--soft)}
+  .ccard .photo{aspect-ratio:1/1;overflow:hidden;background:var(--panel)}
+  .ccard .photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+  .ccard .photo .ini{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,#E8F1F1,#F3F3F3 55%,#EFE9CE);color:var(--teal);font-size:40px;font-weight:600;letter-spacing:.04em}
+  .ccard:hover .photo img{transform:scale(1.045)}
+  .ccard .body{padding:16px}
+  .ccard h4{font-size:16px}
+  .ccard .role{color:var(--teal);font-size:13px;font-weight:500;margin-top:3px}
+
+  footer{background:var(--deep);color:#dff1f2;padding:64px 0 40px}
+  footer .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px}
+  footer .logo{color:#fff}
+  footer h5{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:#9fd2d6;margin-bottom:16px;font-weight:600}
+  footer .foot-grid a{display:block;color:#dff1f2;font-size:15px;margin-bottom:11px;opacity:.86;transition:opacity .18s}
+  footer .foot-grid a:hover{opacity:1;color:#fff}
+  .foot-brand p{color:#a7d4d8;font-size:15px;margin-top:16px;max-width:280px}
+  .foot-euro{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-size:13.5px;color:#cfeaec;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:8px 14px;border-radius:100px}
+  .foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;margin-top:52px;padding-top:26px;border-top:1px solid rgba(255,255,255,.15);font-size:13.5px;color:#a7d4d8}
+  @media(max-width:820px){footer .foot-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){footer .foot-grid{grid-template-columns:1fr}}
+  /* mega nav dropdown */
+  .has-drop{position:relative}
+  .has-drop>a{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+  .has-drop>a .car{width:9px;height:9px;transition:transform .2s}
+  .has-drop:hover>a .car{transform:rotate(180deg)}
+  .drop{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 12px 40px rgba(19,119,128,.14);padding:10px;min-width:250px;opacity:0;visibility:hidden;transition:all .2s;z-index:60}
+  .has-drop:hover .drop{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .drop a{display:block;padding:10px 14px;border-radius:9px;font-size:14.5px;color:var(--body);white-space:nowrap}
+  .drop a:hover{background:#e9f3f4;color:var(--ink)}
+  /* brand logo image */
+  .logo{gap:0}
+  .logo-img{height:42px;width:auto;display:block}
+  .nav-inner .logo{margin-right:24px}
+  .logo-img-foot{height:40px}
+  @media(max-width:600px){.logo-img{height:38px}}
+</style>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+</head>
+<body>
+<div class="goldbar"></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html" aria-label="Alignment Key">
+      <img src="assets/ak-logo-horizontal.png" alt="Alignment Key — Unlock Your Potential" class="logo-img">
+    </a>
+    <nav class="nav-links">
+      <div class="has-drop"><a href="platform-how-it-works.html">The Platform <svg class="car" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="drop">
+          <a href="platform-pathkey-career.html">PathKEY Career</a>
+          <a href="platform-coach-ai-tools.html">PathKEY AI</a>
+          <a href="platform-future-of-work-mapping.html">Future of Work Mapping</a>
+          <a href="platform-pathkey-talent.html">PathKEY Talent</a>
+          <a href="platform-pathkey-team.html">PathKEY Team</a>
+          <a href="platform-how-it-works.html">How It Works</a>
+          <a href="platform-sample-report.html">Sample Report</a>
+          <a href="platform-why-pathkey.html">Why PathKEY</a>
+        </div>
+      </div>
+      <div class="has-drop"><a href="coaching-new-placement.html">Solutions <svg class="car" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="drop">
+          <a href="coaching-new-placement.html">Coaching &amp; Outplacement</a>
+          <a href="career-navigation-reskilling.html">Career Navigation &amp; Reskilling</a>
+          <a href="talent-role-alignment.html">Talent &amp; Role Alignment</a>
+          <a href="team-leadership-development.html">Team &amp; Leadership Development</a>
+        </div>
+      </div>
+      <div class="has-drop"><a href="coaches.html">Coaches &amp; Partners <svg class="car" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="drop">
+          <a href="coaches.html">Become a Certified Coach</a>
+          <a href="upcoming-certifications.html">Upcoming Certifications</a>
+          <a href="find-a-coach.html">Find a Coach / Partner</a>
+          <a href="partner-network.html">Partner Network / Affiliate</a>
+        </div>
+      </div>
+      <div class="has-drop"><a href="story-vision.html">About <svg class="car" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="drop">
+          <a href="story-vision.html">Story &amp; Vision</a>
+          <a href="story-vision.html#founders">Founders</a>
+          <a href="accreditation-science.html">Methodology &amp; Accreditation</a>
+        </div>
+      </div>
+      <div class="has-drop"><a href="blog-insights.html">Resources <svg class="car" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="drop">
+          <a href="blog-insights.html">Blog / Insights</a>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="ebooks.html">Ebooks</a>
+          <a href="faq.html">FAQ</a>
+          <a href="future-skill-signals.html">Future Skill Signals</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-out" href="find-a-coach.html">All Coaches</a>
+      <a class="btn btn-gold" href="https://bookings.cloud.microsoft/book/PathKEYQuestions@alignmentkey.com/?ismsaljsauthenabled=true" target="_blank" rel="noopener">Book a Call</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb" id="crumb"><a href="index.html">Home</a><span>›</span><a href="coaches.html">Coaches &amp; Partners</a><span>›</span><a href="find-a-coach.html">Find a Coach / Partner</a><span>›</span><span id="crumb-name">Profile</span></div>
+</div>
+
+<!-- PROFILE -->
+<div class="wrap profile">
+  <div class="p-grid" id="profile"><!-- injected --></div>
+</div>
+
+<!-- RELATED -->
+<section class="rel-sec">
+  <div class="wrap">
+    <div class="rel-head">
+      <div>
+        <div class="eyebrow">Keep exploring</div>
+        <h2 style="margin-top:10px">More PathKEY coaches</h2>
+      </div>
+      <a class="btn btn-light" href="find-a-coach.html">View all coaches <span class="arrow">→</span></a>
+    </div>
+    <div class="rel-grid" id="related"><!-- injected --></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="index.html" aria-label="Alignment Key">
+          <img src="assets/ak-logo-horizontal-white.png" alt="Alignment Key" class="logo-img logo-img-foot">
+        </a>
+        <p>Insights for personal and professional growth — turning self-awareness into clear, confident action.</p>
+        <div class="foot-euro">🔒 Built in Europe · your data stays protected</div>
+      </div>
+      <div>
+        <h5>Coaches &amp; Partners</h5>
+        <a href="coaches.html">Become a Certified Coach</a>
+          <a href="upcoming-certifications.html">Upcoming Certifications</a><a href="find-a-coach.html">Find a Coach / Partner</a><a href="partner-network.html">Partner Network / Affiliate</a>
+      </div>
+      <div>
+        <h5>For</h5>
+        <a href="coaching-new-placement.html">Coaches &amp; Consultants</a><a href="coaching-new-placement.html">Outplacement Firms</a><a href="team-leadership-development.html">Organizations</a><a href="talent-role-alignment.html">HR &amp; Recruitment</a><a href="academic-institutions.html">Academic Institutions</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="story-vision.html">Story &amp; Vision</a><a href="story-vision.html#founders">Founders</a><a href="accreditation-science.html">Methodology &amp; Accreditation</a><a href="contact.html">Contact</a><a href="privacy-cookie-policy.html">Privacy &amp; Cookies</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 Alignment Key. All rights reserved.</div>
+      <div>Align strengths. Shape futures.</div>
+    <div><a href="#" id="ak-cookie-settings-link" style="color:#a7d4d8;text-decoration:underline">Cookie Settings</a></div></div>
+  </div>
+</footer>
+
+<script src="coaches-data.js?v=20260829a"></script>
+<script>
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>12));
+
+  const params=new URLSearchParams(location.search);
+  const id=params.get('id');
+  const coach=COACHES.find(c=>c.id===id)||COACHES[0];
+
+  document.title=coach.name+" — Alignment Key";
+  document.getElementById('crumb-name').textContent=coach.name;
+
+  const icons={
+    pin:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z" stroke="#137780" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" fill="#DBB100"/></svg>',
+    globe:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#137780" stroke-width="2"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18" stroke="#137780" stroke-width="2"/></svg>',
+    badge:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="5.5" stroke="#137780" stroke-width="2"/><path d="M8.5 13.5L7 21l5-2.5L17 21l-1.5-7.5" stroke="#DBB100" stroke-width="2" stroke-linejoin="round"/></svg>'
+  };
+
+  function initials(name){
+    return name.trim().split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toLocaleUpperCase('tr');
+  }
+  function avatar(x,cls){
+    return x.photo
+      ? `<img src="${x.photo}" alt="${x.name}" loading="lazy"/>`
+      : `<span class="ini" aria-hidden="true">${initials(x.name)}</span>`;
+  }
+  const liIcon='<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM3 9.5h4v11H3v-11zm7 0h3.8v1.5h.05c.53-.95 1.82-1.8 3.55-1.8 2.8 0 3.6 1.75 3.6 4.35v6.95h-4v-6.2c0-1.5-.55-2.5-1.85-2.5-1.1 0-1.85.75-2.15 1.5v7.2H10v-11z"/></svg>';
+  const wwIcon='<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 12h17M12 3.5c2.3 2.3 2.3 14.2 0 17M12 3.5c-2.3 2.3-2.3 14.2 0 17" stroke="currentColor" stroke-width="1.8"/></svg>';
+  const links=[
+    coach.linkedin?`<a href="${coach.linkedin}" target="_blank" rel="noopener">${liIcon}LinkedIn</a>`:'',
+    coach.website?`<a href="${coach.website}" target="_blank" rel="noopener">${wwIcon}Website</a>`:''
+  ].filter(Boolean).join('');
+
+  const STATUS={strategic:'Strategic Partner',affiliate:'Affiliate Partner',practitioner:'Certified Practitioner'};
+  const eyebrow=[STATUS[coach.status]||'PathKEY Certified Coach',coach.trainer].filter(Boolean).join(' · ');
+
+  const p=document.getElementById('profile');
+  p.innerHTML=`
+    <aside class="p-side">
+      <div class="p-photo">${avatar(coach)}</div>
+      ${links?`<div class="p-links">${links}</div>`:''}
+      <div class="meta">
+        <div class="mrow"><span class="ic">${icons.pin}</span><span><span class="k">Location</span><br/><span class="v">${[coach.city,coach.country].filter(Boolean).join(', ')}</span></span></div>
+        <div class="mrow"><span class="ic">${icons.globe}</span><span><span class="k">Coaching languages</span><br/><span class="v">${coach.languages.join(', ')}</span></span></div>
+        ${(coach.workMode&&coach.workMode.length)?`<div class="mrow"><span class="ic">${icons.globe}</span><span><span class="k">Works</span><br/><span class="v">${coach.workMode.join(', ')}</span></span></div>`:''}
+        ${(coach.certifications&&coach.certifications.length)?`<div class="mrow"><span class="ic">${icons.badge}</span><span><span class="k">Certifications</span><br/><span class="v">${coach.certifications.join(', ')}</span></span></div>`:''}
+      </div>
+      <div class="cta">
+        ${coach.booking
+          ? `<a class="btn btn-gold" href="${coach.booking}" target="_blank" rel="noopener">Book a Call with ${coach.name.split(' ')[0]} <span class="arrow">→</span></a>`
+          : `<a class="btn btn-gold" href="contact.html?coach=${encodeURIComponent(coach.name)}">Book a Call with ${coach.name.split(' ')[0]} <span class="arrow">→</span></a>`}
+        <a class="btn btn-light" href="find-a-coach.html">Back to all coaches</a>
+      </div>
+    </aside>
+    <div class="p-main">
+      <div class="eyebrow">${eyebrow}</div>
+      <h1 class="p-name">${coach.name}</h1>
+      <div class="p-role">${coach.title}</div>
+      <div class="p-tags">${coach.expertise.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <p class="p-bio">${coach.bio}</p>
+
+      ${(coach.certifications&&coach.certifications.length)?`<div class="p-block">
+        <h3>Certifications</h3>
+        <div class="p-list">${coach.certifications.map(x=>`<div class="li"><span class="dot">✓</span><span>${x}</span></div>`).join('')}</div>
+      </div>`:''}
+      <div class="p-block">
+        <h3>Selected professional experience</h3>
+        <div class="p-list">${coach.experience.map(x=>`<div class="li"><span class="dot">✓</span><span>${x}</span></div>`).join('')}</div>
+      </div>
+      ${(coach.clients && coach.clients.length) ? `<div class="p-block">
+        <h3>Works primarily with</h3>
+        <div class="p-tags">${coach.clients.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      </div>` : ''}
+      ${(coach.industries && coach.industries.length) ? `<div class="p-block">
+        <h3>Industry experience</h3>
+        <div class="p-tags">${coach.industries.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      </div>` : ''}
+    </div>`;
+
+  // related — up to 4 others
+  const rel=COACHES.filter(c=>c.id!==coach.id).slice(0,4);
+  document.getElementById('related').innerHTML=rel.map(x=>`
+    <a class="ccard" href="coach.html?id=${x.id}">
+      <div class="photo">${avatar(x)}</div>
+      <div class="body"><h4>${x.name}</h4><div class="role">${x.title}</div></div>
+    </a>`).join('');
+</script>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav');
+  if(!nav)return;
+  var toggle=nav.querySelector('.nav-toggle');
+  var links=nav.querySelector('.nav-links');
+  if(!toggle||!links)return;
+  toggle.addEventListener('click',function(){
+    var open=nav.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded',open?'true':'false');
+  });
+  links.querySelectorAll('.has-drop>a').forEach(function(a){
+    a.addEventListener('click',function(e){
+      if(window.innerWidth<=940){
+        e.preventDefault();
+        var parent=a.parentElement;
+        var wasOpen=parent.classList.contains('open');
+        links.querySelectorAll('.has-drop.open').forEach(function(el){ if(el!==parent) el.classList.remove('open'); });
+        parent.classList.toggle('open', !wasOpen);
+      }
+    });
+  });
+  links.querySelectorAll('.drop a').forEach(function(a){
+    a.addEventListener('click',function(){ nav.classList.remove('nav-open'); });
+  });
+  document.addEventListener('click',function(e){
+    if(window.innerWidth<=940 && nav.classList.contains('nav-open') && !nav.contains(e.target)){
+      nav.classList.remove('nav-open');
+    }
+  });
+  window.addEventListener('resize',function(){
+    if(window.innerWidth>940){
+      nav.classList.remove('nav-open');
+      links.querySelectorAll('.has-drop.open').forEach(function(el){el.classList.remove('open');});
+    }
+  });
+})();
+</script>
+<style>
+  .ak-cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#fff;border-top:1px solid var(--border,#E3E3E1);box-shadow:0 -6px 24px rgba(30,30,30,.08);padding:18px 22px;transform:translateY(120%);transition:transform .4s ease}
+  .ak-cookie-banner.show{transform:translateY(0)}
+  .ak-cookie-inner{max-width:1160px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+  .ak-cookie-text{flex:1 1 420px;font-size:14px;line-height:1.55;color:var(--body,#777777);margin:0}
+  .ak-cookie-text a{color:var(--teal,#137780);text-decoration:underline}
+  .ak-cookie-actions{display:flex;gap:10px;flex:0 0 auto}
+  .ak-cookie-btn{border-radius:35px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;border:2px solid transparent;font-family:inherit}
+  .ak-cookie-accept{background:var(--teal,#137780);color:#fff;border-color:var(--teal,#137780)}
+  .ak-cookie-accept:hover{background:var(--deep,#0E6E78)}
+  .ak-cookie-reject{background:transparent;color:var(--ink,#1E1E1E);border-color:var(--border,#E3E3E1)}
+  .ak-cookie-reject:hover{border-color:var(--teal,#137780);color:var(--teal,#137780)}
+  @media(max-width:640px){.ak-cookie-inner{flex-direction:column;align-items:stretch}.ak-cookie-actions{justify-content:stretch}.ak-cookie-btn{flex:1;text-align:center}}
+</style>
+<div id="ak-cookie-banner" class="ak-cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <div class="ak-cookie-inner">
+    <p class="ak-cookie-text">We use essential cookies to run this site, and, only with your consent, analytics cookies to understand how it's used. See our <a href="privacy-cookie-policy.html">Cookie Policy</a> for details.</p>
+    <div class="ak-cookie-actions">
+      <button type="button" class="ak-cookie-btn ak-cookie-reject" id="ak-cookie-reject">Reject</button>
+      <button type="button" class="ak-cookie-btn ak-cookie-accept" id="ak-cookie-accept">Accept</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='ak_cookie_consent';
+  var POLICY_VERSION='v1-2026-09';
+  var CONSENT_LOG_URL='https://alignment-key-backend.onrender.com/api/consent-log';
+  var GA_MEASUREMENT_ID=''; /* set your GA4 ID here, e.g. 'G-XXXXXXXXXX', to start loading analytics once a visitor accepts */
+  var banner=document.getElementById('ak-cookie-banner');
+  var acceptBtn=document.getElementById('ak-cookie-accept');
+  var rejectBtn=document.getElementById('ak-cookie-reject');
+  var settingsLinks=document.querySelectorAll('#ak-cookie-settings-link, .ak-cookie-settings-link');
+
+  function loadAnalytics(){
+    if(!GA_MEASUREMENT_ID || window.__akGaLoaded) return;
+    window.__akGaLoaded=true;
+    var s=document.createElement('script');
+    s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id='+GA_MEASUREMENT_ID;
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){ window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
+  }
+
+  function getConsent(){
+    try{ return JSON.parse(localStorage.getItem(KEY)); }catch(e){ return null; }
+  }
+  function makeId(){
+    try{
+      if(window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    }catch(e){}
+    return 'ak-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
+  }
+  function setConsent(status){
+    var existing=getConsent();
+    var consentId=(existing && existing.consent_id) || makeId();
+    try{ localStorage.setItem(KEY, JSON.stringify({status:status, ts:Date.now(), consent_id:consentId, policy_version:POLICY_VERSION})); }catch(e){}
+    logConsent(consentId, status);
+  }
+  // Best-effort server-side audit trail: proves what a visitor chose and when,
+  // independent of their own browser storage. Never blocks the UI — the
+  // visitor's accept/reject takes effect immediately regardless of this call.
+  function logConsent(consentId, status){
+    try{
+      fetch(CONSENT_LOG_URL, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({consent_id:consentId, status:status, policy_version:POLICY_VERSION, page:location.pathname}),
+        keepalive:true
+      }).catch(function(){});
+    }catch(e){}
+  }
+  function hideBanner(){ if(banner) banner.classList.remove('show'); }
+  function showBanner(){ if(banner) banner.classList.add('show'); }
+  window.__akOpenCookieSettings=showBanner;
+
+  var consent=getConsent();
+  if(consent && consent.status==='accepted'){ loadAnalytics(); }
+  else if(!consent){ showBanner(); }
+
+  if(acceptBtn) acceptBtn.addEventListener('click', function(){ setConsent('accepted'); loadAnalytics(); hideBanner(); });
+  if(rejectBtn) rejectBtn.addEventListener('click', function(){ setConsent('rejected'); hideBanner(); });
+  settingsLinks.forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); showBanner(); });
+  });
+})();
+</script>
+</body>
+</html>

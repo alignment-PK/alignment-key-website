@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Find a Coach / Partner — Alignment Key</title>
+<meta name="description" content="Browse certified PathKEY coaches and partners. Filter by status, country, coaching language, expertise and purpose to find the right partner for your journey." />
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --teal:#137780; --deep:#0E6E78; --gold:#DBB100; --ochre:#E0A81E;
+    --ink:#1E1E1E; --heading:#333333; --body:#777777; --muted:#949494;
+    --soft:#92C0C4; --bg:#F9F9F9; --panel:#F3F3F3; --border:#E3E3E1;
+    --white:#fff; --alert:#E01020;
+    --radius:14px; --radius-lg:22px; --pill:35px; --maxw:1160px;
+    --shadow:0 1px 2px rgba(30,30,30,.04),0 12px 40px rgba(19,119,128,.08);
+    --shadow-soft:0 1px 2px rgba(30,30,30,.03),0 6px 22px rgba(30,30,30,.05);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Rubik',Arial,Helvetica,sans-serif;background:var(--bg);color:var(--heading);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:17px;overflow-x:hidden}
+  h1,h2,h3,h4{color:var(--ink);font-weight:700;line-height:1.14;letter-spacing:-.01em}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  a{color:inherit;text-decoration:none}
+  .accent{color:var(--gold)}
+  .goldbar{position:fixed;top:0;left:0;width:100%;height:5px;background:linear-gradient(90deg,var(--gold),var(--ochre));z-index:100}
+  .eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.15em;font-size:12.5px;color:var(--teal)}
+
+  .btn{display:inline-flex;align-items:center;gap:.55rem;font-weight:600;font-size:15.5px;padding:14px 28px;border-radius:var(--pill);border:2px solid transparent;cursor:pointer;transition:all .22s ease;white-space:nowrap}
+  .btn-gold{background:var(--gold);color:#3a2e00}
+  .btn-gold:hover{background:#c9a200;transform:translateY(-2px);box-shadow:0 10px 24px rgba(219,177,0,.3)}
+  .btn-out{background:transparent;color:var(--teal);border-color:var(--teal)}
+  .btn-out:hover{background:var(--teal);color:#fff;transform:translateY(-2px)}
+  .btn-light{background:#fff;color:var(--teal);border-color:var(--border)}
+  .btn-light:hover{border-color:var(--teal);transform:translateY(-2px)}
+  .arrow{transition:transform .22s ease}
+  .btn:hover .arrow{transform:translateX(3px)}
+
+  .logo{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:.13em;font-size:16px;color:var(--ink);text-transform:uppercase}
+  .logo svg{width:38px;height:29px;flex:0 0 38px}
+
+  header.nav{position:sticky;top:5px;z-index:50;background:rgba(249,249,249,.85);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+  header.nav.scrolled{border-color:var(--border);box-shadow:0 4px 20px rgba(30,30,30,.05)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .nav-links{display:flex;align-items:center;gap:22px}
+  .nav-links a{font-size:15px;color:var(--body);font-weight:500;transition:color .18s;white-space:nowrap}
+  .nav-links a:hover,.nav-links a.active{color:var(--ink)}
+  .nav-cta{display:flex;align-items:center;gap:12px}
+  .nav-cta .btn{padding:11px 22px;font-size:14.5px}
+  @media(max-width:940px){.nav-links{display:none}.nav-cta .btn-out{display:none}}
+  .nav-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:4px;width:28px;height:28px;padding:0;margin:0;background:none;border:none;cursor:pointer;flex-shrink:0}
+  .nav-toggle span{display:block;width:20px;height:2px;background:var(--ink,#12313a);border-radius:2px;transition:transform .25s,opacity .2s,width .2s}
+  #nav.nav-open .nav-toggle span:nth-child(1){transform:translateY(6px) rotate(45deg);width:20px}
+  #nav.nav-open .nav-toggle span:nth-child(2){opacity:0}
+  #nav.nav-open .nav-toggle span:nth-child(3){transform:translateY(-6px) rotate(-45deg);width:20px}
+  @media(max-width:940px){
+    #nav{position:relative}
+    .nav-toggle{display:flex}
+    .nav-inner{padding-left:16px;padding-right:16px}
+    .nav-cta{gap:8px}
+    .nav-cta .btn{white-space:nowrap}
+    #nav.nav-open .nav-links{display:flex;flex-direction:column;align-items:stretch;gap:2px;position:absolute;top:100%;left:0;right:0;background:#fff;padding:14px 16px 20px;box-shadow:0 16px 40px rgba(19,119,128,.16);max-height:calc(100vh - 74px);overflow-y:auto;border-top:1px solid var(--border)}
+    #nav.nav-open .has-drop{width:100%}
+    #nav.nav-open .has-drop>a{display:flex;justify-content:space-between;align-items:center;padding:13px 6px;border-radius:9px;width:100%}
+    #nav.nav-open .has-drop>a:active{background:#f3f7f7}
+    #nav.nav-open .drop{position:static;opacity:1;visibility:hidden;max-height:0;overflow:hidden;transform:none;box-shadow:none;border:none;padding:0 0 0 14px;min-width:0;transition:max-height .25s ease}
+    #nav.nav-open .has-drop.open .drop{visibility:visible;max-height:420px;padding:4px 0 10px 14px}
+    #nav.nav-open .has-drop.open>a .car{transform:rotate(180deg)}
+  }
+  @media(max-width:400px){
+    .nav-inner .logo-img{height:28px}
+    .nav-cta .btn{padding:7px 11px;font-size:12px}
+    .nav-toggle{width:26px;height:26px}
+  }
+
+  .crumb{font-size:13.5px;color:var(--muted);padding:20px 0 0}
+  .crumb a{color:var(--teal);font-weight:500}
+  .crumb span{margin:0 8px;color:var(--border)}
+
+  /* header block */
+  .dir-head{padding:44px 0 26px}
+  .dir-head h1{font-size:clamp(34px,5vw,56px);margin-top:14px}
+  .dir-head p{color:var(--body);font-size:18px;max-width:600px;margin-top:16px}
+
+  /* filter bar */
+  .filters{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);padding:22px 24px;display:flex;flex-wrap:wrap;gap:20px 28px;align-items:flex-end;margin-bottom:14px}
+  .fgroup{display:flex;flex-direction:column;gap:8px;min-width:190px}
+  .fgroup label{font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .fgroup select{appearance:none;font-family:inherit;font-size:15px;color:var(--ink);background:var(--bg) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23137780' stroke-width='2' stroke-linecap='round'/></svg>") no-repeat right 14px center;border:1px solid var(--border);border-radius:var(--pill);padding:11px 40px 11px 18px;cursor:pointer;transition:border-color .18s}
+  .fgroup select:focus{outline:none;border-color:var(--teal)}
+  .fcount{margin-left:auto;font-size:14.5px;color:var(--body);font-weight:500;align-self:center}
+  .fcount b{color:var(--ink)}
+  .fclear{background:none;border:none;color:var(--teal);font-weight:600;font-size:14px;cursor:pointer;font-family:inherit;padding:11px 4px}
+  .fclear:hover{text-decoration:underline}
+  @media(max-width:640px){.fgroup{min-width:100%}.fcount{margin-left:0;width:100%}}
+
+  /* coach grid */
+  .coach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin:30px 0 20px}
+  @media(max-width:960px){.coach-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:720px){.coach-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:460px){.coach-grid{grid-template-columns:1fr}}
+
+  .ccard{display:block;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:transform .25s,box-shadow .25s,border-color .25s}
+  .ccard:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--soft)}
+  .ccard .photo{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--panel)}
+  .ccard .photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+  .ccard .photo .ini{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,#E8F1F1,#F3F3F3 55%,#EFE9CE);color:var(--teal);font-size:46px;font-weight:600;letter-spacing:.04em}
+  .ccard:hover .photo img{transform:scale(1.045)}
+  .ccard .flag{position:absolute;top:12px;left:12px;font-size:11px;font-weight:600;color:var(--ink);background:rgba(255,255,255,.92);backdrop-filter:blur(4px);border:1px solid var(--border);padding:4px 11px;border-radius:100px;display:inline-flex;align-items:center;gap:6px}
+  .ccard .body{padding:18px 18px 20px}
+  .ccard h3{font-size:18px}
+  .ccard .role{color:var(--teal);font-size:13.5px;font-weight:500;margin-top:3px}
+  /* additional capabilities (beyond baseline one-to-one coaching) */
+  .caps{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .cap{font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#8a6a00;background:rgba(219,177,0,.14);border:1px solid rgba(219,177,0,.32);padding:3px 9px;border-radius:100px;display:inline-flex;align-items:center;gap:5px}
+  .cap svg{width:11px;height:11px}
+  .ccard .meta{font-size:12.5px;color:var(--muted);margin-top:9px;display:flex;flex-wrap:wrap;gap:5px 12px}
+  .ccard .meta span{display:inline-flex;align-items:center;gap:5px}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .tag{font-size:11.5px;font-weight:500;color:var(--deep);background:rgba(19,119,128,.08);border:1px solid rgba(19,119,128,.16);padding:4px 10px;border-radius:100px}
+  .ccard .view{margin-top:16px;font-size:13.5px;font-weight:600;color:var(--teal);display:inline-flex;align-items:center;gap:6px}
+  .ccard:hover .view .arrow{transform:translateX(3px)}
+
+  .empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--body)}
+  .empty h3{color:var(--ink);font-size:20px}
+  .empty p{margin-top:8px}
+
+  .dummy-note{font-size:12.5px;color:var(--muted);background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin:6px 0 30px}
+
+  /* cta band */
+  .join-sec{background:linear-gradient(150deg,var(--teal),var(--deep));color:#fff;text-align:center;padding:76px 0;margin-top:40px}
+  .join-sec h2{color:#fff;font-size:clamp(28px,3.6vw,40px)}
+  .join-sec p{color:rgba(255,255,255,.86);font-size:18px;margin:16px auto 30px;max-width:520px}
+
+  footer{background:var(--deep);color:#dff1f2;padding:64px 0 40px}
+  footer .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px}
+  footer .logo{color:#fff}
+  footer h5{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:#9fd2d6;margin-bottom:16px;font-weight:600}
+  footer .foot-grid a{display:block;color:#dff1f2;font-size:15px;margin-bottom:11px;opacity:.86;transition:opacity .18s}
+  footer .foot-grid a:hover{opacity:1;color:#fff}
+  .foot-brand p{color:#a7d4d8;font-size:15px;margin-top:16px;max-width:280px}
+  .foot-euro{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-size:13.5px;color:#cfeaec;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:8px 14px;border-radius:100px}
+  .foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;margin-top:52px;padding-top:26px;border-top:1px solid rgba(255,255,255,.15);font-size:13.5px;color:#a7d4d8}
+  @media(max-width:820px){footer .foot-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){footer .foot-grid{grid-template-columns:1fr}}
+  /* mega nav dropdown */
+  .has-drop{position:relative}
+  .has-drop>a{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+  .has-drop>a .car{width:9px;height:9px;transition:transform .2s}
+  .has-drop:hover>a .car{transform:rotate(180deg)}
+  .drop{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 12px 40px rgba(19,119,128,.14);padding:10px;min-width:250px;opacity:0;visibility:hidden;transition:all .2s;z-index:60}
+  .has-drop:hover .drop{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .drop a{display:block;padding:10px 14px;border-radius:9px;font-size:14.5px;color:var(--body);white-space:nowrap}
+  .drop a:hover{background:#e9f3f4;color:var(--ink)}
+  /* brand logo image */
+  .logo{gap:0}
+  .logo-img{height:42px;width:auto;display:block}
+  .nav-inner .logo{margin-right:24px}
+  .logo-img-foot{height:40px}
+  @media(max-width:600px){.logo-img{height:38px}}
+</style>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+</head>
+<body>
+<div class="goldbar"></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html" aria-label="Alignment Key">
+      <img src="assets/ak-logo-horizontal.png" alt="Alignment Key — Unlock Your Potential" class="logo-img">
+    </a>
+    <nav class="nav-links">
+      <div class="has-drop"><a href="platform-how-it-works.html">The Platform <svg class="car" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="drop">
+          <a href="platform-pathkey-career.html">PathKEY Career</a>
+          <a href="platform-coach-ai-tools.html">PathKEY AI</a>
+          <a href="platform-future-of-work-mapping.html">Future of Work Mapping</a>
+          <a href="platform-pathkey-talent.html">PathKEY Talent</a>
+          <a href="platform-pathkey-team.html">PathKEY Team</a>
+          <a href="platform-how-it-works.html">How It Works</a>
+          <a href="platform-sample-report.html">Sample Report</a>
+          <a href="platform-why-pathkey.html">Why PathKEY</a>
+        </div>
+      </div>
+      <div class="has-drop"><a href="coaching-new-placement.html">Solutions <svg class="car" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="drop">
+          <a href="coaching-new-placement.html">Coaching &amp; Outplacement</a>
+          <a href="career-navigation-reskilling.html">Career Navigation &amp; Reskilling</a>
+          <a href="talent-role-alignment.html">Talent &amp; Role Alignment</a>
+          <a href="team-leadership-development.html">Team &amp; Leadership Development</a>
+        </div>
+      </div>
+      <div class="has-drop"><a href="coaches.html">Coaches &amp; Partners <svg class="car" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="drop">
+          <a href="coaches.html">Become a Certified Coach</a>
+          <a href="upcoming-certifications.html">Upcoming Certifications</a>
+          <a href="find-a-coach.html">Find a Coach / Partner</a>
+          <a href="partner-network.html">Partner Network / Affiliate</a>
+        </div>
+      </div>
+      <div class="has-drop"><a href="story-vision.html">About <svg class="car" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="drop">
+          <a href="story-vision.html">Story &amp; Vision</a>
+          <a href="story-vision.html#founders">Founders</a>
+          <a href="accreditation-science.html">Methodology &amp; Accreditation</a>
+        </div>
+      </div>
+      <div class="has-drop"><a href="blog-insights.html">Resources <svg class="car" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="drop">
+          <a href="blog-insights.html">Blog / Insights</a>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="ebooks.html">Ebooks</a>
+          <a href="faq.html">FAQ</a>
+          <a href="future-skill-signals.html">Future Skill Signals</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-out" href="coaches.html">Become a Coach</a>
+      <a class="btn btn-gold" href="https://bookings.cloud.microsoft/book/PathKEYQuestions@alignmentkey.com/?ismsaljsauthenabled=true" target="_blank" rel="noopener">Book a Call</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="index.html">Home</a><span>›</span><a href="coaches.html">Coaches &amp; Partners</a><span>›</span>Find a Coach / Partner</div>
+</div>
+
+<!-- HEAD -->
+<div class="wrap dir-head">
+  <div class="eyebrow">Find a Coach / Partner</div>
+  <h1>Meet our certified<br/><span class="accent">coaches &amp; partners.</span></h1>
+  <p>Everyone below is trained on the PathKEY methodology. Filter by status, country, coaching language, expertise and purpose to find the right partner for your journey.</p>
+</div>
+
+<!-- FILTERS + GRID -->
+<div class="wrap">
+  <div class="filters">
+    <div class="fgroup">
+      <label for="f-status">Partnership status</label>
+      <select id="f-status">
+        <option value="">All statuses</option>
+        <option value="strategic">Strategic Partner</option>
+        <option value="affiliate">Affiliate Partner</option>
+        <option value="practitioner">Certified Practitioner</option>
+      </select>
+    </div>
+    <div class="fgroup">
+      <label for="f-country">Country</label>
+      <select id="f-country"><option value="">All countries</option></select>
+    </div>
+    <div class="fgroup">
+      <label for="f-language">Coaching language</label>
+      <select id="f-language"><option value="">All languages</option></select>
+    </div>
+    <div class="fgroup">
+      <label for="f-expertise">Expertise</label>
+      <select id="f-expertise"><option value="">All expertise</option></select>
+    </div>
+    <div class="fgroup">
+      <label for="f-purpose">Need</label>
+      <select id="f-purpose">
+        <option value="">Any need</option>
+        <option value="one-to-one">One-to-one coaching</option>
+        <option value="workshop">Workshop</option>
+        <option value="business-development">Business development / consulting</option>
+      </select>
+    </div>
+    <button class="fclear" id="f-clear">Clear filters</button>
+    <div class="fcount"><b id="count">0</b> results</div>
+  </div>
+
+  <div class="dummy-note">Note: most profiles below are published from each coach&rsquo;s own submitted PathKEY profile. A small number of earlier entries still carry provisional country, language and expertise tags, which are being confirmed via the same form.</div>
+
+  <div class="coach-grid" id="grid"></div>
+</div>
+
+<!-- JOIN CTA -->
+<section class="join-sec">
+  <div class="wrap">
+    <div class="eyebrow" style="color:#f3d79a">For coaches</div>
+    <h2 style="margin-top:12px">Want to be listed here?</h2>
+    <p>Become a certified PathKEY coach — grow your practice, win new clients, and become part of a global community of PathKEY professionals.</p>
+    <a class="btn btn-gold" href="coaches.html">Become a Certified Coach <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="index.html" aria-label="Alignment Key">
+          <img src="assets/ak-logo-horizontal-white.png" alt="Alignment Key" class="logo-img logo-img-foot">
+        </a>
+        <p>Insights for personal and professional growth — turning self-awareness into clear, confident action.</p>
+        <div class="foot-euro">🔒 Built in Europe · your data stays protected</div>
+      </div>
+      <div>
+        <h5>Coaches &amp; Partners</h5>
+        <a href="coaches.html">Become a Certified Coach</a>
+          <a href="upcoming-certifications.html">Upcoming Certifications</a><a href="find-a-coach.html">Find a Coach / Partner</a><a href="partner-network.html">Partner Network / Affiliate</a>
+      </div>
+      <div>
+        <h5>For</h5>
+        <a href="coaching-new-placement.html">Coaches &amp; Consultants</a><a href="coaching-new-placement.html">Outplacement Firms</a><a href="team-leadership-development.html">Organizations</a><a href="talent-role-alignment.html">HR &amp; Recruitment</a><a href="academic-institutions.html">Academic Institutions</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="story-vision.html">Story &amp; Vision</a><a href="story-vision.html#founders">Founders</a><a href="accreditation-science.html">Methodology &amp; Accreditation</a><a href="contact.html">Contact</a><a href="privacy-cookie-policy.html">Privacy &amp; Cookies</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 Alignment Key. All rights reserved.</div>
+      <div>Align strengths. Shape futures.</div>
+    <div><a href="#" id="ak-cookie-settings-link" style="color:#a7d4d8;text-decoration:underline">Cookie Settings</a></div></div>
+  </div>
+</footer>
+
+<script src="coaches-data.js?v=20260829a"></script>
+<script>
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>12));
+
+  const grid=document.getElementById('grid');
+  const selCountry=document.getElementById('f-country');
+  const selLang=document.getElementById('f-language');
+  const selExp=document.getElementById('f-expertise');
+  const selPurpose=document.getElementById('f-purpose');
+  const selStatus=document.getElementById('f-status');
+  const countEl=document.getElementById('count');
+  const clearBtn=document.getElementById('f-clear');
+
+  // populate filter options
+  const countries=[...new Set(COACHES.map(c=>c.country))].sort();
+  const langs=[...new Set(COACHES.flatMap(c=>c.languages))].sort();
+  const exps=[...new Set(COACHES.flatMap(c=>c.expertise))].sort();
+  countries.forEach(v=>selCountry.add(new Option(v,v)));
+  langs.forEach(v=>selLang.add(new Option(v,v)));
+  exps.forEach(v=>selExp.add(new Option(v,v)));
+
+  function initials(name){
+    return name.trim().split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toLocaleUpperCase('tr');
+  }
+  function avatar(x){
+    return x.photo
+      ? `<img src="${x.photo}" alt="${x.name}" loading="lazy"/>`
+      : `<span class="ini" aria-hidden="true">${initials(x.name)}</span>`;
+  }
+
+  function pin(){return '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z" stroke="#137780" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" fill="#DBB100"/></svg>';}
+
+  // Everyone offers one-to-one coaching as a baseline; show it first, then any
+  // extra capabilities (workshop / business development) below the coach's title.
+  const CAPS={
+    'one-to-one':{label:'One-to-one coaching',icon:'<svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-3 2.5-5 5-5s5 2 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16 5a3 3 0 0 1 0 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 15c2 0 3.5 1.6 3.5 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'},
+    workshop:{label:'Workshops',icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 20h16M6 20V9m4 11V6m4 14v-8m4 8V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'},
+    'business-development':{label:'Business development / consulting',icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M3 17l5-5 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 4h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'}
+  };
+  function lastName(name){const p=name.trim().split(/\s+/);return (p[p.length-1]||name).toLocaleLowerCase('tr');}
+  // sort alphabetically by last name
+  function sortCoaches(list){
+    return list.slice().sort((a,b)=>lastName(a.name).localeCompare(lastName(b.name),'tr'));
+  }
+
+  function render(){
+    const c=selCountry.value, l=selLang.value, e=selExp.value, p=selPurpose.value, s=selStatus.value;
+    let list=COACHES.filter(x=>
+      (!s||x.status===s) &&
+      (!c||x.country===c) &&
+      (!l||x.languages.includes(l)) &&
+      (!e||x.expertise.includes(e)) &&
+      (!p||(x.purpose||[]).includes(p))
+    );
+    list=sortCoaches(list);
+    countEl.textContent=list.length;
+    if(!list.length){
+      grid.innerHTML='<div class="empty"><h3>No coaches or partners match those filters</h3><p>Try clearing a filter to see more results.</p></div>';
+      return;
+    }
+    grid.innerHTML=list.map(x=>{
+      // show top 3 expertise tags only (a profile may list more)
+      const tags=x.expertise.slice(0,3).map(t=>`<span class="tag">${t}</span>`).join('');
+      // capabilities: one-to-one coaching is baseline for everyone, then any extras
+      const capKeys=['one-to-one',...(x.purpose||[]).filter(k=>k!=='one-to-one')].filter(k=>CAPS[k]);
+      const caps=capKeys.map(k=>`<span class="cap">${CAPS[k].icon}${CAPS[k].label}</span>`).join('');
+      return `
+      <a class="ccard" href="coach.html?id=${x.id}">
+        <div class="photo">
+          <span class="flag">${pin()}${x.country}</span>
+          ${avatar(x)}
+        </div>
+        <div class="body">
+          <h3>${x.name}</h3>
+          <div class="role">${x.title}</div>
+          ${caps?`<div class="caps">${caps}</div>`:''}
+          <div class="meta"><span>${x.languages.join(' · ')}</span></div>
+          <div class="tags">${tags}</div>
+          <div class="view">View profile <span class="arrow">→</span></div>
+        </div>
+      </a>`;}).join('');
+  }
+  [selStatus,selCountry,selLang,selExp,selPurpose].forEach(s=>s.addEventListener('change',render));
+  clearBtn.addEventListener('click',()=>{selStatus.value='';selCountry.value='';selLang.value='';selExp.value='';selPurpose.value='';render();});
+  render();
+</script>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav');
+  if(!nav)return;
+  var toggle=nav.querySelector('.nav-toggle');
+  var links=nav.querySelector('.nav-links');
+  if(!toggle||!links)return;
+  toggle.addEventListener('click',function(){
+    var open=nav.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded',open?'true':'false');
+  });
+  links.querySelectorAll('.has-drop>a').forEach(function(a){
+    a.addEventListener('click',function(e){
+      if(window.innerWidth<=940){
+        e.preventDefault();
+        var parent=a.parentElement;
+        var wasOpen=parent.classList.contains('open');
+        links.querySelectorAll('.has-drop.open').forEach(function(el){ if(el!==parent) el.classList.remove('open'); });
+        parent.classList.toggle('open', !wasOpen);
+      }
+    });
+  });
+  links.querySelectorAll('.drop a').forEach(function(a){
+    a.addEventListener('click',function(){ nav.classList.remove('nav-open'); });
+  });
+  document.addEventListener('click',function(e){
+    if(window.innerWidth<=940 && nav.classList.contains('nav-open') && !nav.contains(e.target)){
+      nav.classList.remove('nav-open');
+    }
+  });
+  window.addEventListener('resize',function(){
+    if(window.innerWidth>940){
+      nav.classList.remove('nav-open');
+      links.querySelectorAll('.has-drop.open').forEach(function(el){el.classList.remove('open');});
+    }
+  });
+})();
+</script>
+<style>
+  .ak-cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#fff;border-top:1px solid var(--border,#E3E3E1);box-shadow:0 -6px 24px rgba(30,30,30,.08);padding:18px 22px;transform:translateY(120%);transition:transform .4s ease}
+  .ak-cookie-banner.show{transform:translateY(0)}
+  .ak-cookie-inner{max-width:1160px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+  .ak-cookie-text{flex:1 1 420px;font-size:14px;line-height:1.55;color:var(--body,#777777);margin:0}
+  .ak-cookie-text a{color:var(--teal,#137780);text-decoration:underline}
+  .ak-cookie-actions{display:flex;gap:10px;flex:0 0 auto}
+  .ak-cookie-btn{border-radius:35px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;border:2px solid transparent;font-family:inherit}
+  .ak-cookie-accept{background:var(--teal,#137780);color:#fff;border-color:var(--teal,#137780)}
+  .ak-cookie-accept:hover{background:var(--deep,#0E6E78)}
+  .ak-cookie-reject{background:transparent;color:var(--ink,#1E1E1E);border-color:var(--border,#E3E3E1)}
+  .ak-cookie-reject:hover{border-color:var(--teal,#137780);color:var(--teal,#137780)}
+  @media(max-width:640px){.ak-cookie-inner{flex-direction:column;align-items:stretch}.ak-cookie-actions{justify-content:stretch}.ak-cookie-btn{flex:1;text-align:center}}
+</style>
+<div id="ak-cookie-banner" class="ak-cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <div class="ak-cookie-inner">
+    <p class="ak-cookie-text">We use essential cookies to run this site, and, only with your consent, analytics cookies to understand how it's used. See our <a href="privacy-cookie-policy.html">Cookie Policy</a> for details.</p>
+    <div class="ak-cookie-actions">
+      <button type="button" class="ak-cookie-btn ak-cookie-reject" id="ak-cookie-reject">Reject</button>
+      <button type="button" class="ak-cookie-btn ak-cookie-accept" id="ak-cookie-accept">Accept</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='ak_cookie_consent';
+  var POLICY_VERSION='v1-2026-09';
+  var CONSENT_LOG_URL='https://alignment-key-backend.onrender.com/api/consent-log';
+  var GA_MEASUREMENT_ID=''; /* set your GA4 ID here, e.g. 'G-XXXXXXXXXX', to start loading analytics once a visitor accepts */
+  var banner=document.getElementById('ak-cookie-banner');
+  var acceptBtn=document.getElementById('ak-cookie-accept');
+  var rejectBtn=document.getElementById('ak-cookie-reject');
+  var settingsLinks=document.querySelectorAll('#ak-cookie-settings-link, .ak-cookie-settings-link');
+
+  function loadAnalytics(){
+    if(!GA_MEASUREMENT_ID || window.__akGaLoaded) return;
+    window.__akGaLoaded=true;
+    var s=document.createElement('script');
+    s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id='+GA_MEASUREMENT_ID;
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){ window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
+  }
+
+  function getConsent(){
+    try{ return JSON.parse(localStorage.getItem(KEY)); }catch(e){ return null; }
+  }
+  function makeId(){
+    try{
+      if(window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    }catch(e){}
+    return 'ak-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
+  }
+  function setConsent(status){
+    var existing=getConsent();
+    var consentId=(existing && existing.consent_id) || makeId();
+    try{ localStorage.setItem(KEY, JSON.stringify({status:status, ts:Date.now(), consent_id:consentId, policy_version:POLICY_VERSION})); }catch(e){}
+    logConsent(consentId, status);
+  }
+  // Best-effort server-side audit trail: proves what a visitor chose and when,
+  // independent of their own browser storage. Never blocks the UI — the
+  // visitor's accept/reject takes effect immediately regardless of this call.
+  function logConsent(consentId, status){
+    try{
+      fetch(CONSENT_LOG_URL, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({consent_id:consentId, status:status, policy_version:POLICY_VERSION, page:location.pathname}),
+        keepalive:true
+      }).catch(function(){});
+    }catch(e){}
+  }
+  function hideBanner(){ if(banner) banner.classList.remove('show'); }
+  function showBanner(){ if(banner) banner.classList.add('show'); }
+  window.__akOpenCookieSettings=showBanner;
+
+  var consent=getConsent();
+  if(consent && consent.status==='accepted'){ loadAnalytics(); }
+  else if(!consent){ showBanner(); }
+
+  if(acceptBtn) acceptBtn.addEventListener('click', function(){ setConsent('accepted'); loadAnalytics(); hideBanner(); });
+  if(rejectBtn) rejectBtn.addEventListener('click', function(){ setConsent('rejected'); hideBanner(); });
+  settingsLinks.forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); showBanner(); });
+  });
+})();
+</script>
+</body>
+</html>

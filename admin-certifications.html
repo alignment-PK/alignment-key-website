@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Sertifikasyon Yönetimi — Alignment Key</title>
+<link rel="icon" href="assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/cohort-card.css?v=20260829a" />
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Rubik',Arial,Helvetica,sans-serif;background:var(--bg);color:var(--heading);font-size:15px;line-height:1.55}
+  a{color:var(--teal)}
+  /* ---- top bar ---- */
+  .abar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:14px 22px;background:rgba(249,249,249,.92);backdrop-filter:blur(14px) saturate(160%);border-bottom:1px solid var(--border)}
+  .abar img{height:32px;width:auto}
+  .abar .ttl{font-weight:600;color:var(--ink)}
+  .abar .ttl small{display:block;font-weight:400;font-size:12.5px;color:var(--muted)}
+  .abar .sp{margin-left:auto}
+  .abtn{font-family:inherit;font-size:14px;font-weight:600;padding:10px 18px;border-radius:100px;border:2px solid transparent;cursor:pointer;transition:.2s;white-space:nowrap}
+  .abtn.p{background:var(--teal);color:#fff}.abtn.p:hover{background:var(--deep)}
+  .abtn.g{background:var(--gold);color:#3a2e00}.abtn.g:hover{background:#c9a200}
+  .abtn.o{background:#fff;color:var(--teal);border-color:var(--border)}.abtn.o:hover{border-color:var(--teal)}
+  .abtn.d{background:#fff;color:#b32020;border-color:#f0cccc}.abtn.d:hover{background:#fdf3f3;border-color:#b32020}
+  .abtn:disabled{opacity:.45;cursor:not-allowed}
+  .dirty{display:none;font-size:12.5px;font-weight:600;color:#8a4b00;background:#fdeede;border:1px solid #f2c894;padding:5px 12px;border-radius:100px}
+  .dirty.on{display:inline-block}
+  /* ---- layout ---- */
+  .shell{display:grid;grid-template-columns:300px minmax(0,1fr);gap:22px;padding:22px;align-items:start}
+  @media(max-width:1020px){.shell{grid-template-columns:1fr}}
+  .panel{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-soft)}
+  .panel h2{margin:0;padding:16px 18px;font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600}
+  .panel .pad{padding:18px}
+  /* list */
+  .clist{list-style:none;margin:0;padding:8px}
+  .clist li{display:flex;align-items:flex-start;gap:8px;padding:10px 10px;border-radius:12px;cursor:pointer;transition:.15s}
+  .clist li:hover{background:var(--panel)}
+  .clist li.sel{background:rgba(19,119,128,.09);box-shadow:inset 0 0 0 1px rgba(19,119,128,.22)}
+  .clist .ci{min-width:0;flex:1}
+  .clist .cn{font-weight:600;font-size:14px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .clist .cs{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.7}
+  .clist .mv{display:flex;flex-direction:column;gap:2px}
+  .mini{width:24px;height:20px;border:1px solid var(--border);background:#fff;border-radius:6px;cursor:pointer;font-size:11px;line-height:1;color:var(--body);padding:0}
+  .mini:hover{border-color:var(--teal);color:var(--teal)}
+  .pill{display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:100px;background:var(--panel);color:var(--body);margin-right:5px}
+  .pill.l1{background:#fdf5d6;color:#6b5600}.pill.l2{background:#e6e6e6;color:#333}
+  /* form */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px 16px}
+  @media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
+  .fld{display:block}
+  .fld > span{display:block;font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+  input[type=text],input[type=url],textarea,select{width:100%;font-family:inherit;font-size:14.5px;color:var(--ink);background:#fff;border:1px solid var(--border);border-radius:10px;padding:10px 12px;transition:.18s}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(19,119,128,.12)}
+  textarea{min-height:76px;resize:vertical;line-height:1.5}
+  .chk{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--ink);font-weight:500}
+  .chk input{width:17px;height:17px;accent-color:var(--teal)}
+  .sub{font-size:12px;color:var(--muted);margin-top:5px}
+  fieldset{border:1px solid var(--border);border-radius:14px;padding:16px;margin:0 0 18px}
+  legend{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);padding:0 8px}
+  .metarow{display:grid;grid-template-columns:150px minmax(0,1fr) 34px;gap:10px;margin-bottom:10px;align-items:center}
+  @media(max-width:640px){.metarow{grid-template-columns:1fr 1fr 34px}}
+  .prev-wrap{background:var(--bg);border:1px dashed var(--border);border-radius:16px;padding:18px;overflow-x:auto}
+  .empty{padding:40px 20px;text-align:center;color:var(--muted)}
+  /* login */
+  .gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .gate .box{width:100%;max-width:390px;background:#fff;border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);padding:34px 30px;text-align:center}
+  .gate img{height:38px;margin-bottom:18px}
+  .gate h1{font-size:20px;color:var(--ink);margin:0 0 6px}
+  .gate p{font-size:13.5px;color:var(--body);margin:0 0 20px}
+  .gate .err{display:none;font-size:13px;color:#b32020;margin-top:12px}
+  .gate .err.on{display:block}
+  .hint{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:var(--ink);color:#fff;font-size:14px;padding:12px 20px;border-radius:100px;opacity:0;pointer-events:none;transition:.28s;z-index:80}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<!-- ============ ŞİFRE EKRANI ============ -->
+<div class="gate" id="gate">
+  <div class="box">
+    <img src="assets/ak-logo-horizontal.png" alt="Alignment Key" />
+    <h1>Sertifikasyon Yönetimi</h1>
+    <p>Devam etmek için ekip şifresini girin.</p>
+    <form id="gateForm">
+      <input type="password" id="pw" placeholder="Şifre" autocomplete="current-password"
+             style="width:100%;font-family:inherit;font-size:15px;border:1px solid var(--border);border-radius:10px;padding:12px 14px;text-align:center" />
+      <button class="abtn p" type="submit" style="width:100%;margin-top:14px">Giriş yap</button>
+    </form>
+    <div class="err" id="gateErr">Şifre hatalı. Tekrar deneyin.</div>
+    <p class="hint" style="margin-top:22px">Bu panel yalnızca içerik düzenleme kolaylığı sağlar; hassas veri barındırmaz. Şifreyi ekip dışında paylaşmayın.</p>
+  </div>
+</div>
+
+<!-- ============ PANEL ============ -->
+<div id="app" hidden>
+  <div class="abar">
+    <img src="assets/ak-logo-horizontal.png" alt="Alignment Key" />
+    <div class="ttl">Sertifikasyon Yönetimi<small>upcoming-certifications.html kartları</small></div>
+    <span class="dirty" id="dirty">Kaydedilmemiş değişiklik var</span>
+    <div class="sp"></div>
+    <a class="abtn o" href="upcoming-certifications.html" target="_blank" rel="noopener" style="text-decoration:none">Sayfayı gör</a>
+    <button class="abtn o" id="btnReload" title="Yayındaki dosyaya geri dön">Sıfırla</button>
+    <button class="abtn o" id="btnCopy">Kodu kopyala</button>
+    <button class="abtn g" id="btnDownload">Dosyayı indir</button>
+  </div>
+
+  <div class="shell">
+    <!-- SOL: liste -->
+    <div class="panel">
+      <h2>Sertifikasyonlar</h2>
+      <ul class="clist" id="list"></ul>
+      <div class="pad" style="border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap">
+        <button class="abtn p" id="btnAdd" style="flex:1">+ Yeni kart</button>
+        <button class="abtn o" id="btnDup">Kopyala</button>
+      </div>
+      <div class="pad" style="border-top:1px solid var(--border)">
+        <p class="hint"><strong>Nasıl çalışır?</strong><br>
+        1. Kartları burada düzenleyin.<br>
+        2. <strong>Dosyayı indir</strong>'e basın → <code>certifications-data.js</code> iner.<br>
+        3. Bu dosyayı bize iletin; siteyi yeniden yayınlayınca değişiklikler canlıya geçer.</p>
+      </div>
+    </div>
+
+    <!-- SAĞ: form + önizleme -->
+    <div>
+      <div class="panel" id="editorPanel">
+        <h2>Kart detayları</h2>
+        <div class="pad" id="editor"><div class="empty">Soldan bir kart seçin veya yeni kart ekleyin.</div></div>
+      </div>
+
+      <div class="panel" style="margin-top:22px">
+        <h2>Canlı önizleme</h2>
+        <div class="pad"><div class="prev-wrap"><div class="cohort-grid" id="preview"></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="certifications-data.js?v=20260829a"></script>
+<script src="assets/cohort-card.js?v=20260829a"></script>
+<script>
+/* =============== şifre kapısı =============== */
+var PW_HASH='a28073a7ed4fd064822fdbf815c6c5a7b02b1854fc441557bde413e24a63befc';
+var SESSION_KEY='ak_admin_ok', DRAFT_KEY='ak_cert_draft_v1';
+
+function sha256(str){
+  var enc=new TextEncoder().encode(str);
+  return crypto.subtle.digest('SHA-256',enc).then(function(buf){
+    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+  });
+}
+function unlock(){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('app').hidden=false;
+  boot();
+}
+document.getElementById('gateForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  sha256(document.getElementById('pw').value).then(function(h){
+    if(h===PW_HASH){try{sessionStorage.setItem(SESSION_KEY,'1');}catch(_){} unlock();}
+    else{document.getElementById('gateErr').classList.add('on');}
+  });
+});
+/* oturum kontrolü script sonunda çalışır (boot() tüm tanımlara ihtiyaç duyar) */
+
+/* =============== durum =============== */
+var ORIGINAL=JSON.parse(JSON.stringify(window.AK_CERTIFICATIONS||[]));
+var data=[], sel=0, dirty=false, booted=false;
+
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');setTimeout(function(){t.classList.remove('on');},2200);}
+function setDirty(v){dirty=v;document.getElementById('dirty').classList.toggle('on',!!v);if(v){try{localStorage.setItem(DRAFT_KEY,JSON.stringify(data));}catch(_){}}}
+
+function blank(){
+  return {id:'yeni-'+Date.now().toString(36),level:'1',language:'English',featured:false,
+    title:'PathKEY Level 1 Certification',outcome:'\u2192 PathKEY Certified Coach',description:'',
+    status:{label:'Enrollment Open',tone:'open'},
+    trainer:{name:'',role:'PathKEY Trainer',initials:'',photo:'',profileUrl:''},
+    meta:[{k:'Language',v:'English'},{k:'Starts',v:''},{k:'Schedule',v:''},{k:'Duration',v:'6 weeks'},
+          {k:'Format',v:'Live Online'},{k:'Cohort Size',v:'Max 12'},{k:'Trainer',v:''},{k:'Outcome',v:'Certified Coach'}],
+    price:{value:'\u20ac950',note:'+ VAT'},
+    primaryCta:{label:'Reserve Your Place',url:'https://buy.stripe.com/aFa5kE1qzggidW63ms5c40z',style:'gold'},
+    secondaryCta:{label:'',url:''},smallprint:'',icfBadge:false};
+}
+
+function boot(){
+  if(booted)return; booted=true;
+  var draft=null;
+  try{draft=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null');}catch(_){}
+  if(draft&&draft.length){
+    data=draft; setDirty(true);
+    toast('Kaydedilmemiş taslağınız geri yüklendi');
+  }else{
+    data=JSON.parse(JSON.stringify(ORIGINAL));
+  }
+  renderAll();
+}
+
+/* =============== liste =============== */
+function renderList(){
+  var ul=document.getElementById('list');
+  ul.innerHTML=data.map(function(c,i){
+    return '<li class="'+(i===sel?'sel':'')+'" data-i="'+i+'">'+
+      '<div class="ci"><div class="cn">'+esc(c.title||'(başlıksız)')+'</div>'+
+      '<div class="cs"><span class="pill l'+(c.level==='2'?'2':'1')+'">Level '+esc(c.level||'1')+'</span>'+
+      esc(c.language||'')+(c.meta&&c.meta[1]&&c.meta[1].v?' · '+esc(c.meta[1].v):'')+
+      (c.featured?' · öne çıkan':'')+'</div></div>'+
+      '<div class="mv"><button class="mini" data-mv="up" title="Yukarı">▲</button>'+
+      '<button class="mini" data-mv="down" title="Aşağı">▼</button></div></li>';
+  }).join('')||'<li style="color:var(--muted);font-size:13px">Henüz kart yok.</li>';
+
+  ul.querySelectorAll('li[data-i]').forEach(function(li){
+    li.addEventListener('click',function(e){
+      var i=+li.dataset.i, mv=e.target.getAttribute('data-mv');
+      if(mv){
+        var j=mv==='up'?i-1:i+1;
+        if(j<0||j>=data.length)return;
+        var t=data[i];data[i]=data[j];data[j]=t;
+        if(sel===i)sel=j;else if(sel===j)sel=i;
+        setDirty(true);renderAll();return;
+      }
+      sel=i;renderAll();
+    });
+  });
+}
+
+/* =============== form =============== */
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function fld(label,path,val,type,hint){
+  return '<label class="fld"><span>'+label+'</span><input type="'+(type||'text')+'" data-p="'+path+'" value="'+esc(val)+'" />'+
+    (hint?'<div class="sub">'+hint+'</div>':'')+'</label>';
+}
+function renderEditor(){
+  var box=document.getElementById('editor');
+  var c=data[sel];
+  if(!c){box.innerHTML='<div class="empty">Soldan bir kart seçin veya yeni kart ekleyin.</div>';return;}
+  var toneOpts=[['open','Enrollment Open (yeşil)'],['few','Few Places Left (turuncu)'],['wait','Waitlist (mor)'],['soon','Coming Soon (gri)']];
+  box.innerHTML=
+  '<fieldset><legend>Temel bilgiler</legend>'+
+    '<div class="grid3">'+
+      '<label class="fld"><span>Seviye</span><select data-p="level"><option value="1"'+(c.level==='1'?' selected':'')+'>Level 1</option><option value="2"'+(c.level==='2'?' selected':'')+'>Level 2</option></select></label>'+
+      fld('Dil','language',c.language,'text','Filtrelerde kullanılır: English / German / Serbian')+
+      fld('Kayıt ID','id',c.id,'text','Teknik kimlik, boşluksuz')+
+    '</div>'+
+    '<div style="margin-top:14px">'+fld('Başlık','title',c.title)+'</div>'+
+    '<div style="margin-top:14px">'+fld('Alt başlık (ünvan satırı)','outcome',c.outcome,'text','Örn: → PathKEY Certified Coach')+'</div>'+
+    '<label class="fld" style="margin-top:14px"><span>Açıklama</span><textarea data-p="description">'+esc(c.description)+'</textarea></label>'+
+    '<div class="grid2" style="margin-top:14px">'+
+      fld('Durum etiketi','status.label',(c.status||{}).label)+
+      '<label class="fld"><span>Durum rengi</span><select data-p="status.tone">'+
+        toneOpts.map(function(o){return '<option value="'+o[0]+'"'+(((c.status||{}).tone||'open')===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+
+      '</select></label>'+
+    '</div>'+
+    '<div style="margin-top:14px" class="chk"><input type="checkbox" data-p="featured" '+(c.featured?'checked':'')+' /> Bu kartı öne çıkar (teal çerçeve)</div>'+
+  '</fieldset>'+
+
+  '<fieldset><legend>Eğitmen</legend>'+
+    '<div class="grid2">'+
+      fld('Ad Soyad','trainer.name',(c.trainer||{}).name)+
+      fld('Ünvan','trainer.role',(c.trainer||{}).role,'text','Örn: PathKEY Trainer')+
+    '</div>'+
+    '<div class="grid2" style="margin-top:14px">'+
+      fld('Fotoğraf yolu (opsiyonel)','trainer.photo',(c.trainer||{}).photo,'text','Örn: coaches-img/vera.jpg — boş bırakılırsa baş harfler görünür')+
+      fld('Profil bağlantısı (opsiyonel)','trainer.profileUrl',(c.trainer||{}).profileUrl,'text','Örn: coach.html?id=vera')+
+    '</div>'+
+    '<div style="margin-top:14px;max-width:200px">'+fld('Baş harfler','trainer.initials',(c.trainer||{}).initials,'text','Boş bırakılırsa otomatik')+'</div>'+
+  '</fieldset>'+
+
+  '<fieldset><legend>Kart bilgileri (8 kutu)</legend><div id="metaRows">'+
+    (c.meta||[]).map(function(m,i){
+      return '<div class="metarow"><input type="text" data-meta="'+i+'.k" value="'+esc(m.k)+'" placeholder="Etiket (örn. Starts)" />'+
+        '<input type="text" data-meta="'+i+'.v" value="'+esc(m.v)+'" placeholder="Değer (örn. 8 Sep 2026)" />'+
+        '<button class="mini" data-metadel="'+i+'" title="Satırı sil" style="height:34px">✕</button></div>';
+    }).join('')+
+  '</div><button class="abtn o" id="btnMetaAdd" style="margin-top:4px">+ Satır ekle</button>'+
+  '<div class="sub">Etiketleri serbestçe değiştirebilirsiniz (Language, Starts, Schedule, Duration, Format, Cohort Size, Trainer/Prerequisite, Outcome).</div></fieldset>'+
+
+  '<fieldset><legend>Fiyat ve butonlar</legend>'+
+    '<div class="grid2">'+
+      fld('Fiyat','price.value',(c.price||{}).value,'text','Örn: €950')+
+      fld('Fiyat notu','price.note',(c.price||{}).note,'text','Örn: + VAT')+
+    '</div>'+
+    '<div class="grid3" style="margin-top:14px">'+
+      fld('Ana buton yazısı','primaryCta.label',(c.primaryCta||{}).label)+
+      fld('Ana buton bağlantısı','primaryCta.url',(c.primaryCta||{}).url,'text','Stripe ödeme linki')+
+      '<label class="fld"><span>Ana buton stili</span><select data-p="primaryCta.style">'+
+        '<option value="gold"'+(((c.primaryCta||{}).style||'gold')==='gold'?' selected':'')+'>Altın (dolu)</option>'+
+        '<option value="out"'+((c.primaryCta||{}).style==='out'?' selected':'')+'>Çerçeveli (teal)</option></select></label>'+
+    '</div>'+
+    '<div class="grid2" style="margin-top:14px">'+
+      fld('İkinci buton yazısı','secondaryCta.label',(c.secondaryCta||{}).label,'text','Boş bırakılırsa gizlenir')+
+      fld('İkinci buton bağlantısı','secondaryCta.url',(c.secondaryCta||{}).url)+
+    '</div>'+
+    '<label class="fld" style="margin-top:14px"><span>Küçük not / iade koşulu</span><textarea data-p="smallprint" style="min-height:60px">'+esc(c.smallprint)+'</textarea></label>'+
+    '<div style="margin-top:14px" class="chk"><input type="checkbox" data-p="icfBadge" '+(c.icfBadge?'checked':'')+' /> "ICF CCE Eligible" etiketini göster</div>'+
+  '</fieldset>'+
+
+  '<div style="display:flex;gap:10px;flex-wrap:wrap">'+
+    '<button class="abtn d" id="btnDel">Bu kartı sil</button>'+
+  '</div>';
+
+  /* alan dinleyicileri */
+  box.querySelectorAll('[data-p]').forEach(function(el){
+    var ev=(el.tagName==='SELECT'||el.type==='checkbox')?'change':'input';
+    el.addEventListener(ev,function(){
+      var val=el.type==='checkbox'?el.checked:el.value;
+      var parts=el.dataset.p.split('.'), o=data[sel];
+      for(var i=0;i<parts.length-1;i++){o[parts[i]]=o[parts[i]]||{};o=o[parts[i]];}
+      o[parts[parts.length-1]]=val;
+      setDirty(true);renderList();renderPreview();
+    });
+  });
+  box.querySelectorAll('[data-meta]').forEach(function(el){
+    el.addEventListener('input',function(){
+      var p=el.dataset.meta.split('.');
+      data[sel].meta[+p[0]][p[1]]=el.value;
+      setDirty(true);renderList();renderPreview();
+    });
+  });
+  box.querySelectorAll('[data-metadel]').forEach(function(b){
+    b.addEventListener('click',function(){
+      data[sel].meta.splice(+b.dataset.metadel,1);setDirty(true);renderAll();
+    });
+  });
+  var ma=document.getElementById('btnMetaAdd');
+  if(ma)ma.addEventListener('click',function(){data[sel].meta.push({k:'',v:''});setDirty(true);renderAll();});
+  document.getElementById('btnDel').addEventListener('click',function(){
+    if(!confirm('"'+(data[sel].title||'')+'" kartı silinsin mi?'))return;
+    data.splice(sel,1);sel=Math.max(0,sel-1);setDirty(true);renderAll();toast('Kart silindi');
+  });
+}
+
+/* =============== önizleme =============== */
+function renderPreview(){
+  var p=document.getElementById('preview');
+  var c=data[sel];
+  p.innerHTML=c?window.akCohortCardHTML(c,{noReveal:true}):'<div class="empty">Önizlenecek kart yok.</div>';
+}
+function renderAll(){renderList();renderEditor();renderPreview();}
+
+/* =============== üst bar aksiyonları =============== */
+function fileText(){
+  var head='/* ============================================================\n'+
+  '   Alignment Key — Upcoming Certifications data\n'+
+  '   Bu dosya admin-certifications.html paneli ile olusturulmustur.\n'+
+  '   Son guncelleme: '+new Date().toISOString().slice(0,16).replace('T',' ')+' (UTC)\n'+
+  '   ============================================================ */\n';
+  return head+'window.AK_CERTIFICATIONS = '+JSON.stringify(data,null,2)+';\n';
+}
+document.getElementById('btnDownload').addEventListener('click',function(){
+  var blob=new Blob([fileText()],{type:'text/javascript;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='certifications-data.js';
+  document.body.appendChild(a);a.click();a.remove();
+  toast('certifications-data.js indirildi');
+});
+document.getElementById('btnCopy').addEventListener('click',function(){
+  (navigator.clipboard?navigator.clipboard.writeText(fileText()):Promise.reject())
+    .then(function(){toast('Kod kopyalandı');})
+    .catch(function(){
+      var ta=document.createElement('textarea');ta.value=fileText();document.body.appendChild(ta);
+      ta.select();document.execCommand('copy');ta.remove();toast('Kod kopyalandı');
+    });
+});
+document.getElementById('btnReload').addEventListener('click',function(){
+  if(!confirm('Tüm değişiklikler silinip yayındaki hâline dönülsün mü?'))return;
+  data=JSON.parse(JSON.stringify(ORIGINAL));sel=0;
+  try{localStorage.removeItem(DRAFT_KEY);}catch(_){}
+  setDirty(false);renderAll();toast('Yayındaki hâle dönüldü');
+});
+document.getElementById('btnAdd').addEventListener('click',function(){
+  data.push(blank());sel=data.length-1;setDirty(true);renderAll();
+  document.getElementById('editorPanel').scrollIntoView({behavior:'smooth',block:'start'});
+});
+document.getElementById('btnDup').addEventListener('click',function(){
+  if(!data[sel])return;
+  var c=JSON.parse(JSON.stringify(data[sel]));
+  c.id=(c.id||'kart')+'-kopya';c.title=c.title;c.featured=false;
+  data.splice(sel+1,0,c);sel=sel+1;setDirty(true);renderAll();toast('Kart kopyalandı');
+});
+addEventListener('beforeunload',function(e){if(dirty){e.preventDefault();e.returnValue='';}});
+
+/* daha önce bu sekmede giriş yapıldıysa doğrudan aç */
+try{if(sessionStorage.getItem(SESSION_KEY)==='1')unlock();}catch(_){}
+</script>
+</body>
+</html>
