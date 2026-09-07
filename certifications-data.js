@@ -30,7 +30,7 @@ window.AK_CERTIFICATIONS = [
       { "k": "Outcome", "v": "Certified Coach" }
     ],
     "price": { "value": "\u20ac950", "note": "+ VAT" },
-    "primaryCta": { "label": "Reserve Your Place", "url": "https://buy.stripe.com/14A9AUedlfce5pA1ek5c40A" },
+    "primaryCta": { "label": "Reserve Your Place", "url": "https://buy.stripe.com/4gM00k7OXe8acS2e165c40E" },
     "secondaryCta": { "label": "Explore Level 1 Program", "url": "coaches.html" },
     "smallprint": "Full refund available until 29 Sep 2026. VAT excluded.",
     "icfBadge": true
@@ -56,10 +56,10 @@ window.AK_CERTIFICATIONS = [
       { "k": "Accreditation", "v": "ICF Accredited \u2013 16 CCE" }
     ],
     "price": { "value": "\u20ac950", "note": "+ VAT" },
-    "primaryCta": { "label": "Reserve Your Place", "url": "https://buy.stripe.com/14A9AUedlfce5pA1ek5c40A" },
+    "primaryCta": { "label": "Reserve Your Place", "url": "https://buy.stripe.com/4gM6oIc5d6FI2do4qw5c40H" },
     "secondaryCta": { "label": "Explore Level 1 Program", "url": "coaches.html" },
     "smallprint": "Full refund available until 3 Nov 2026. VAT excluded.",
-    "icfBadge": true
+    "icfBadge": false
   },
   {
     "id": "l1-de-2026-10",
