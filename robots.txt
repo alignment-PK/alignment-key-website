@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin-certifications.html
+
+Sitemap: https://www.alignmentkey.com/sitemap.xml
