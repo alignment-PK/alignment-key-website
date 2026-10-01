@@ -459,158 +459,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="contact-grid">
       <div class="reveal">
-        <form id="leadForm" novalidate>
-          <div class="form-field"><label for="name">Full name</label><input id="name" name="name" required placeholder="Your name"/></div>
-          <div class="form-field"><label for="email">Work email</label><input id="email" name="email" type="email" required placeholder="you@company.com"/></div>
-          <div class="form-field"><label for="org">Organization <span style="color:var(--body);font-weight:400">(optional)</span></label><input id="org" name="org" placeholder="Company or practice"/></div>
-          <div class="form-field"><label for="country">Country</label>
-            <select id="country" name="country" required>
-              <option value="" disabled selected>Select your country</option>
-              <option>Austria</option>
-              <option>Belgium</option>
-              <option>Canada</option>
-              <option>Denmark</option>
-              <option>Finland</option>
-              <option>France</option>
-              <option>Germany</option>
-              <option>Greece</option>
-              <option>Ireland</option>
-              <option>Italy</option>
-              <option>Netherlands</option>
-              <option>Norway</option>
-              <option>Poland</option>
-              <option>Portugal</option>
-              <option>Qatar</option>
-              <option>Saudi Arabia</option>
-              <option>Spain</option>
-              <option>Sweden</option>
-              <option>Switzerland</option>
-              <option>Türkiye</option>
-              <option>United Arab Emirates</option>
-              <option>United Kingdom</option>
-              <option>United States</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-field"><label for="interest">I'm interested in</label>
-            <select id="interest" name="interest">
-              <option>Coaching &amp; Outplacement (Outplacement)</option>
-              <option>Career Navigation &amp; Reskilling</option>
-              <option>Talent &amp; Role Alignment</option>
-              <option>Team &amp; Leadership Development</option>
-              <option>Becoming a Certified Coach</option>
-              <option>Partner Network / Affiliate</option>
-              <option>PathKEY Career Report (€150)</option>
-              <option>A sample report</option>
-              <option>Something else</option>
-            </select>
-          </div>
-          <div class="form-field"><label for="msg">Message</label><textarea id="msg" name="msg" placeholder="What would you like to explore with us?"></textarea></div>
-          <div class="form-field consent"><label for="consent" style="display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px;line-height:1.5"><input type="checkbox" id="consent" name="consent" required style="width:auto;margin-top:3px;flex:0 0 auto"/><span>I agree that Alignment Key may store and process this information to respond to my enquiry, in line with the <a href="privacy-cookie-policy.html" style="color:var(--teal);text-decoration:underline">privacy notice</a>.</span></label></div>
-          <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden"><label for="company_website">Website</label><input id="company_website" name="company_website" tabindex="-1" autocomplete="off"/></div>
-          <button class="btn btn-gold" id="leadSubmit" type="submit">Send message <span class="arrow">→</span></button>
-          <p id="leadError" role="alert" style="display:none;margin-top:14px;font-size:14.5px;color:#a33;background:rgba(163,51,51,.07);border:1px solid rgba(163,51,51,.25);border-radius:10px;padding:12px 14px"></p>
-        </form>
+        <iframe id="zohoContactForm" title="PathKEY - Request a Conversation" aria-label='PathKEY - Request a Conversation' frameborder="0" style="height:1200px;width:99%;border:none;" src='https://forms.zohopublic.eu/alignmentkey1/form/PathKEYRequestaConversation/formperma/jjNozH3F7Ws-_6HEn6pxq5U0E_exTy0xI3607X6au20' allow="geolocation;"></iframe>
         <script>
+          /* Carry context from other pages (coach profiles, Future Skill Signals,
+             sample report, certifications) into the Zoho form's Message field. */
           (function(){
             var params=new URLSearchParams(window.location.search);
-            var coach=params.get('coach');
-            var interest=params.get('interest');
-            var note=params.get('note');
-            var topskill=params.get('topskill');
-            function normalize(s){return s.replace(/[&]/g,' ').replace(/[-_]+/g,' ').toLowerCase().replace(/\s+/g,' ').trim();}
-            if(interest){
-              var isel=document.getElementById('interest');
-              if(isel){
-                var want=normalize(interest);
-                for(var k=0;k<isel.options.length;k++){
-                  if(normalize(isel.options[k].text).indexOf(want)>-1){isel.selectedIndex=k;break;}
-                }
-                if(/career.*report/.test(want)){
-                  for(var k2=0;k2<isel.options.length;k2++){
-                    if(/PathKEY Career Report/i.test(isel.options[k2].text)){isel.selectedIndex=k2;break;}
-                  }
-                }
-              }
-            }
-            if(coach){
-              var msg=document.getElementById('msg');
-              if(msg){msg.value="I'd like to book a call with "+coach+". ";msg.focus();var v=msg.value;msg.value='';msg.value=v;}
-              var sel=document.getElementById('interest');
-              if(sel){for(var i=0;i<sel.options.length;i++){if(/Certified Coach|Coaching/.test(sel.options[i].text)){sel.selectedIndex=i;break;}}}
-            }
-            if(note||topskill){
-              var msgEl=document.getElementById('msg');
-              if(msgEl&&!msgEl.value){
-                msgEl.value=note?decodeURIComponent(note):("My top Future Skill Signal is "+decodeURIComponent(topskill||'')+". I'd like to learn more about full career mapping.");
-              }
-            }
-
-            /* Lead capture → Zoho CRM. Always hit the live Render backend directly.
-               Do not reintroduce a sandbox port placeholder here: the publish
-               pipeline rewrites that kind of pattern into a broken relative path
-               on the production site, which silently dropped every submission. */
-            var API_BASE='https://alignment-key-backend.onrender.com';
-
-            var form=document.getElementById('leadForm');
-            var btn=document.getElementById('leadSubmit');
-            var errBox=document.getElementById('leadError');
-            if(!form) return;
-
-            function fail(text){
-              errBox.innerHTML=text;
-              errBox.style.display='block';
-              btn.disabled=false;
-              btn.innerHTML='Send message <span class="arrow">→</span>';
-            }
-
-            form.addEventListener('submit',function(ev){
-              ev.preventDefault();
-              errBox.style.display='none';
-              if(!form.checkValidity()){ form.reportValidity(); return; }
-
-              btn.disabled=true;
-              btn.textContent='Sending…';
-
-              var payload={
-                name:form.name.value.trim(),
-                email:form.email.value.trim(),
-                org:form.org.value.trim(),
-                country:form.country.value,
-                interest:form.interest.value,
-                msg:form.msg.value.trim(),
-                coach:coach||'',
-                page:'contact.html',
-                hp:form.company_website.value
-              };
-
-              fetch(API_BASE+'/api/lead',{
-                method:'POST',
-                headers:{'Content-Type':'application/json'},
-                body:JSON.stringify(payload)
-              }).then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
-                .then(function(res){
-                  if(res&&res.ok){
-                    var box=document.createElement('div');
-                    box.className='panel-box';
-                    var h3=document.createElement('h3');
-                    h3.textContent='Thank you, '+payload.name.split(' ')[0]+'!';
-                    var p=document.createElement('p');
-                    p.textContent='We\u2019ve received your message and will be in touch within one business day.';
-                    box.appendChild(h3);
-                    box.appendChild(p);
-                    form.innerHTML='';
-                    form.appendChild(box);
-                    window.scrollTo({top:form.getBoundingClientRect().top+window.scrollY-140,behavior:'smooth'});
-                  }else if(res&&res.error==='rate_limited'){
-                    fail('You\u2019ve submitted a few times in a row \u2014 please wait a few minutes and try again, or email <a href="mailto:hello@alignmentkey.com" style="color:#a33;text-decoration:underline">hello@alignmentkey.com</a>.');
-                  }else{
-                    fail('We couldn\u2019t submit the form just now. Please email us directly at <a href="mailto:hello@alignmentkey.com" style="color:#a33;text-decoration:underline">hello@alignmentkey.com</a> and we\u2019ll reply right away.');
-                  }
-                }).catch(function(){
-                  fail('Connection problem \u2014 please try again, or email <a href="mailto:hello@alignmentkey.com" style="color:#a33;text-decoration:underline">hello@alignmentkey.com</a>.');
-                });
-            });
+            var coach=params.get('coach'), interest=params.get('interest'),
+                note=params.get('note'), topskill=params.get('topskill');
+            var msg='';
+            if(coach){ msg="I'd like to book a call with "+coach+". "; }
+            else if(note){ msg=note; }
+            else if(topskill){ msg="My top Future Skill Signal is "+topskill+". I'd like to learn more about full career mapping."; }
+            else if(interest){ msg="I'm interested in: "+interest.replace(/[-_]+/g,' ')+"."; }
+            if(!msg) return;
+            var f=document.getElementById('zohoContactForm');
+            var u=new URL(f.getAttribute('src'));
+            u.searchParams.set('MultiLine',msg);
+            f.setAttribute('src',u.toString());
           })();
         </script>
       </div>
