@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin-certifications.html
+Disallow: /quiz-submitted.html
 
 Sitemap: https://www.alignmentkey.com/sitemap.xml

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Loading your results — Alignment Key</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<style>
+  html,body{margin:0;height:100%;font-family:Rubik,system-ui,-apple-system,Segoe UI,sans-serif;background:transparent;color:#777}
+  .wrap{display:flex;align-items:center;justify-content:center;height:100%;min-height:200px;font-size:15px}
+</style>
+</head>
+<body>
+<div class="wrap">Loading your results&hellip;</div>
+<script>
+  /* Zoho Forms ("See your Top 3") redirects here after a successful submission.
+     The visitor's email arrives as a query parameter (any name; the first value
+     that looks like an email is used). Notify the quiz page so it can write the
+     quiz result to the CRM lead and reveal the Top 3. */
+  (function () {
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    var email = '';
+    new URLSearchParams(window.location.search).forEach(function (v) {
+      if (!email && EMAIL_RE.test(String(v).trim())) email = String(v).trim();
+    });
+    var inFrame = false;
+    try { inFrame = window.parent && window.parent !== window; } catch (e) { inFrame = false; }
+    if (inFrame) {
+      // The quiz page only accepts this message from its own Zoho iframe (ev.source check).
+      window.parent.postMessage({ type: 'ak-quiz-submitted', email: email }, '*');
+    } else {
+      window.location.replace('future-skill-signals.html?unlocked=1' + (email ? '&email=' + encodeURIComponent(email) : '') + '#quiz-app');
+    }
+  })();
+</script>
+</body>
+</html>

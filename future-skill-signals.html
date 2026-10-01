@@ -244,6 +244,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .qz-check-row{display:flex;align-items:flex-start;gap:10px;margin:20px 0 26px}
   .qz-check-row input{margin-top:3px;width:17px;height:17px;accent-color:var(--teal);flex-shrink:0}
   .qz-check-row label{font-size:13px;color:var(--body);line-height:1.5}
+  .qz-gate.qz-gate-zoho{max-width:600px}
   .qz-gate-note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:16px}
 
   /* reveal */
@@ -432,40 +433,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <!-- Screen 3: Email gate -->
+      <!-- Screen 3: Email gate (Zoho Forms) -->
       <div class="qz-screen" id="qz-screen-gate">
-        <div class="qz-gate">
-          <span class="eyebrow" style="display:block;text-align:center;margin-bottom:12px">Almost there</span>
-          <h2>See your Top 3</h2>
-          <p class="desc">Ready to see which Future Skill Signals stand out most for you?</p>
-          <form id="qz-gate-form">
-            <div class="qz-form-field">
-              <label for="qz-gate-name">Full name</label>
-              <input type="text" id="qz-gate-name" name="name" placeholder="Jane Doe" required />
-            </div>
-            <div class="qz-form-field">
-              <label for="qz-gate-email">Email address</label>
-              <input type="email" id="qz-gate-email" name="email" placeholder="you@company.com" required />
-            </div>
-            <div class="qz-form-field">
-              <label for="qz-gate-segment">What best describes you?</label>
-              <select id="qz-gate-segment" name="segment" required>
-                <option value="" disabled selected>Select one</option>
-                <option value="individual">Individual</option>
-                <option value="hr">HR or People Leader</option>
-                <option value="coaches">Coach or Consultant</option>
-                <option value="outplacement">Outplacement</option>
-                <option value="recruitment">Recruitment</option>
-              </select>
-            </div>
-            <div class="qz-check-row">
-              <input type="checkbox" id="qz-gate-consent" required />
-              <label for="qz-gate-consent">I'd like to receive occasional insights from Alignment Key</label>
-            </div>
-            <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden"><label for="qz-gate-website">Website</label><input id="qz-gate-website" name="qz_gate_website" tabindex="-1" autocomplete="off"/></div>
-            <button type="submit" class="btn btn-primary btn-block">Reveal My Top 3</button>
-            <p id="qz-gate-error" role="alert" style="display:none;margin-top:14px;font-size:14px;color:#a33;background:rgba(163,51,51,.07);border:1px solid rgba(163,51,51,.25);border-radius:10px;padding:11px 13px"></p>
-          </form>
+        <div class="qz-gate qz-gate-zoho">
+          <iframe id="qz-zoho-form" aria-label='See your Top 3' title="See your Top 3" frameborder="0" style="height:880px;width:99%;border:none;" data-src='https://forms.zohopublic.eu/alignmentkey1/form/SeeyourTop3/formperma/BhZm7IDY3UzJ5ZuqAuFisRvTh3p4xUTnmsxk4DK4Ju8'></iframe>
+          <p id="qz-gate-wait" class="qz-gate-note" style="display:none">Loading your results&hellip;</p>
         </div>
       </div>
 
@@ -715,52 +687,77 @@ function fsqScore(answers) {
     document.getElementById('quiz-app').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  document.getElementById('qz-unlock-btn').addEventListener('click', function () { showScreen('gate'); });
-
-  /* Lead capture → same Render backend used by contact.html. Always hit the live
-     URL directly — never reintroduce a sandbox port placeholder here, the publish
-     pipeline rewrites that into a broken relative path on the production site. */
+  /* Email gate → embedded Zoho Form ("See your Top 3").
+     Zoho Forms redirects (inside the iframe) to quiz-submitted.html after a
+     successful submission, passing the visitor's email. That page notifies this
+     one, which then (1) writes the quiz result to the Zoho CRM lead via the
+     Render backend (upsert by Email → Quiz_Result) and (2) reveals the Top 3.
+     The result is also kept in sessionStorage so it survives a full-page redirect. */
   var QZ_API_BASE = 'https://alignment-key-backend.onrender.com';
-  var QZ_SEGMENT_LABELS = {
-    individual: 'Individual', hr: 'HR or People Leader', coaches: 'Coach or Consultant',
-    outplacement: 'Outplacement', recruitment: 'Recruitment'
-  };
+  var QZ_STORE_KEY = 'ak_fsq_result';
+  var qzRevealed = false;
 
-  document.getElementById('qz-gate-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var form = e.target;
-    var errBox = document.getElementById('qz-gate-error');
-    var submitBtn = form.querySelector('button[type="submit"]');
-    errBox.style.display = 'none';
-    if (!form.checkValidity()) { form.reportValidity(); return; }
+  function qzResultMsg() {
+    return 'Top 3 Future Skill Signals: ' + result.top3.map(function (t) { return FSQ_SKILLS[t.key].name; }).join(', ') + '.';
+  }
 
-    selectedSegment = document.getElementById('qz-gate-segment').value || 'individual';
-    var top3Names = result.top3.map(function (t) { return FSQ_SKILLS[t.key].name; });
+  function qzOpenGate() {
+    try { sessionStorage.setItem(QZ_STORE_KEY, JSON.stringify(result)); } catch (e) {}
+    var f = document.getElementById('qz-zoho-form');
+    var u = new URL(f.getAttribute('data-src'));
+    u.searchParams.set('msg', qzResultMsg());
+    u.searchParams.set('page', 'future-skill-signals.html');
+    f.setAttribute('src', u.toString());
+    showScreen('gate');
+  }
 
-    var payload = {
-      name: document.getElementById('qz-gate-name').value.trim(),
-      email: document.getElementById('qz-gate-email').value.trim(),
-      org: '',
-      country: '',
-      interest: 'Future Skill Signals Quiz \u2014 ' + (QZ_SEGMENT_LABELS[selectedSegment] || selectedSegment),
-      msg: 'Top 3 Future Skill Signals: ' + top3Names.join(', ') + '.',
-      page: 'future-skill-signals.html',
-      hp: document.getElementById('qz-gate-website').value
+  function qzUnlock(email) {
+    if (qzRevealed || !result) return;
+    qzRevealed = true;
+    document.getElementById('qz-gate-wait').style.display = 'block';
+    var done = function () {
+      try { sessionStorage.removeItem(QZ_STORE_KEY); } catch (e) {}
+      renderReveal();
+      showScreen('reveal');
     };
+    if (email && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      fetch(QZ_API_BASE + '/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          interest: 'Future Skill Signals Quiz',
+          msg: qzResultMsg(),
+          page: 'future-skill-signals.html'
+        })
+      }).catch(function () { /* best-effort — the visitor still sees their result */ })
+        .finally(done);
+    } else {
+      done();
+    }
+  }
+  window.akQuizSubmitted = qzUnlock;
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Saving\u2026';
-
-    fetch(QZ_API_BASE + '/api/lead', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).catch(function () { /* best-effort — the visitor still sees their own result below */ })
-      .finally(function () {
-        renderReveal();
-        showScreen('reveal');
-      });
+  window.addEventListener('message', function (ev) {
+    var f = document.getElementById('qz-zoho-form');
+    if (!f || ev.source !== f.contentWindow) return;
+    var d = ev.data || {};
+    if (d && d.type === 'ak-quiz-submitted') qzUnlock(d.email || '');
   });
+
+  document.getElementById('qz-unlock-btn').addEventListener('click', qzOpenGate);
+
+  // Full-page fallback: quiz-submitted.html redirected the top window back here.
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('unlocked') !== '1') return;
+    var saved = null;
+    try { saved = JSON.parse(sessionStorage.getItem(QZ_STORE_KEY) || 'null'); } catch (e) {}
+    if (!saved || !saved.top3) return;
+    result = saved;
+    if (window.history && history.replaceState) history.replaceState(null, '', window.location.pathname + '#quiz-app');
+    qzUnlock(params.get('email') || '');
+  })();
 
   function renderReveal() {
     var cardsEl = document.getElementById('qz-result-cards');
