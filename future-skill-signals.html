@@ -704,10 +704,8 @@ function fsqScore(answers) {
   function qzOpenGate() {
     try { sessionStorage.setItem(QZ_STORE_KEY, JSON.stringify(result)); } catch (e) {}
     var f = document.getElementById('qz-zoho-form');
-    var u = new URL(f.getAttribute('data-src'));
-    u.searchParams.set('msg', qzResultMsg());
-    u.searchParams.set('page', 'future-skill-signals.html');
-    f.setAttribute('src', u.toString());
+    // Zoho hidden field (link name "msg") → mapped to CRM Quiz_Result in Zoho Forms.
+    f.setAttribute('src', f.getAttribute('data-src') + '?msg=' + encodeURIComponent(qzResultMsg()));
     showScreen('gate');
   }
 
