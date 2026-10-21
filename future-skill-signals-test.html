@@ -251,6 +251,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .qz-check-row input{margin-top:3px;width:17px;height:17px;accent-color:var(--teal);flex-shrink:0}
   .qz-check-row label{font-size:13px;color:var(--body);line-height:1.5}
   .qz-gate.qz-gate-zoho{max-width:600px}
+  /* Zoho Creator form has a fixed ~760px layout: widen the gate beyond the 720px quiz column */
+  .qz-gate.qz-gate-zoho{max-width:none;width:min(800px,calc(100vw - 32px));position:relative;left:50%;transform:translateX(-50%);margin:0}
   .qz-gate-note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:16px}
 
   /* reveal */
