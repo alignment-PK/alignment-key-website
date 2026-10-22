@@ -718,7 +718,11 @@ function fsqScore(answers) {
     var f = document.getElementById('top3-iframe');
     // Zoho Creator field (link name exactly "Quiz_Result") prefilled via URL parameter.
     var base = f.getAttribute('data-src');
-    f.src = base + '?Quiz_Result=' + encodeURIComponent(qzResultMsg());
+    // zc_NextUrl: after a successful submit, Creator loads quiz-submitted.html inside
+    // this iframe; that page posts 'ak-quiz-submitted' back here → Top 3 is revealed.
+    var next = 'https://www.alignmentkey.com/quiz-submitted.html?src=creator';
+    f.src = base + '?Quiz_Result=' + encodeURIComponent(qzResultMsg()) +
+      '&zc_NextUrl=' + encodeURIComponent(next);
     showScreen('gate');
   }
 
