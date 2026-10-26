@@ -30,7 +30,7 @@ window.AK_CERTIFICATIONS = [
       },
       {
         "k": "Starts",
-        "v": "03 Nov 2026"
+        "v": "10 Nov 2026"
       },
       {
         "k": "Schedule",
@@ -69,7 +69,7 @@ window.AK_CERTIFICATIONS = [
       "label": "Explore Level 1 Program",
       "url": "coaches.html"
     },
-    "smallprint": "Full refund available until 10 Nov 2026. VAT excluded.",
+    "smallprint": "Full refund available until 17 Nov 2026. VAT excluded.",
     "icfBadge": true
   },
   {
