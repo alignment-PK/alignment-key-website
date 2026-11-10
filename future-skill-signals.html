@@ -250,6 +250,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .qz-check-row input{margin-top:3px;width:17px;height:17px;accent-color:var(--teal);flex-shrink:0}
   .qz-check-row label{font-size:13px;color:var(--body);line-height:1.5}
   .qz-gate.qz-gate-zoho{max-width:600px}
+  /* Zoho Creator form has a fixed ~760px layout: widen the gate beyond the 720px quiz column */
+  .qz-gate.qz-gate-zoho{max-width:none;width:min(800px,calc(100vw - 32px));position:relative;left:50%;transform:translateX(-50%);margin:0}
   .qz-gate-note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:16px}
 
   /* reveal */
@@ -438,10 +440,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <!-- Screen 3: Email gate (Zoho Forms) -->
+      <!-- Screen 3: Email gate (Zoho Creator) -->
       <div class="qz-screen" id="qz-screen-gate">
         <div class="qz-gate qz-gate-zoho">
-          <iframe id="qz-zoho-form" aria-label='See your Top 3' title="See your Top 3" frameborder="0" style="height:880px;width:99%;border:none;" data-src='https://forms.zohopublic.eu/alignmentkey1/form/SeeyourTop3/formperma/BhZm7IDY3UzJ5ZuqAuFisRvTh3p4xUTnmsxk4DK4Ju8'></iframe>
+          <iframe id="top3-iframe" aria-label="See your Top 3" title="See your Top 3" height="600px" width="100%" frameborder="0" allowTransparency="true" scrolling="auto" style="border:none;" data-src="https://creatorapp.zohopublic.eu/alignmentkey/see-your-top-3/form-embed/Top3_Entry/ZkerMBqEETk65WpAdwseBmmUN52TaafWh0DesaPezTOpzGE3TyxFkuf2BUqzBVG9r2uEC22mPXY9AE3KqdOgHYNwn8Sry682NUUp"></iframe>
           <p id="qz-gate-wait" class="qz-gate-note" style="display:none">Loading your results&hellip;</p>
         </div>
       </div>
@@ -712,9 +714,14 @@ function fsqScore(answers) {
 
   function qzOpenGate() {
     try { sessionStorage.setItem(QZ_STORE_KEY, JSON.stringify(result)); } catch (e) {}
-    var f = document.getElementById('qz-zoho-form');
-    // Zoho hidden field (link name "msg") → mapped to CRM Quiz_Result in Zoho Forms.
-    f.setAttribute('src', f.getAttribute('data-src') + '?msg=' + encodeURIComponent(qzResultMsg()));
+    var f = document.getElementById('top3-iframe');
+    // Zoho Creator field (link name exactly "Quiz_Result") prefilled via URL parameter.
+    var base = f.getAttribute('data-src');
+    // zc_NextUrl: after a successful submit, Creator loads quiz-submitted.html inside
+    // this iframe; that page posts 'ak-quiz-submitted' back here → Top 3 is revealed.
+    var next = 'https://www.alignmentkey.com/quiz-submitted.html?src=creator';
+    f.src = base + '?Quiz_Result=' + encodeURIComponent(qzResultMsg()) +
+      '&zc_NextUrl=' + encodeURIComponent(next);
     showScreen('gate');
   }
 
@@ -746,7 +753,7 @@ function fsqScore(answers) {
   window.akQuizSubmitted = qzUnlock;
 
   window.addEventListener('message', function (ev) {
-    var f = document.getElementById('qz-zoho-form');
+    var f = document.getElementById('top3-iframe');
     if (!f || ev.source !== f.contentWindow) return;
     var d = ev.data || {};
     if (d && d.type === 'ak-quiz-submitted') qzUnlock(d.email || '');
