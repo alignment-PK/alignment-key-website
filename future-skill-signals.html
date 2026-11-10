@@ -250,8 +250,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .qz-check-row input{margin-top:3px;width:17px;height:17px;accent-color:var(--teal);flex-shrink:0}
   .qz-check-row label{font-size:13px;color:var(--body);line-height:1.5}
   .qz-gate.qz-gate-zoho{max-width:600px}
-  /* Zoho Creator form has a fixed ~760px layout: widen the gate beyond the 720px quiz column */
-  .qz-gate.qz-gate-zoho{max-width:none;width:min(800px,calc(100vw - 32px));position:relative;left:50%;transform:translateX(-50%);margin:0}
+  /* Zoho Creator form has a fixed ~964px layout: widen the gate beyond the 720px quiz column */
+  .qz-gate.qz-gate-zoho{max-width:none;width:min(966px,calc(100vw - 32px));position:relative;left:50%;transform:translateX(-50%);margin:0;overflow:hidden}
+  /* Zoho Creator renders this form at a fixed 964px width; keep the iframe at that width and scale it down to fit narrower screens */
+  .qz-gate.qz-gate-zoho #top3-iframe{width:966px!important;max-width:none;transform-origin:0 0}
   .qz-gate-note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:16px}
 
   /* reveal */
@@ -443,7 +445,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- Screen 3: Email gate (Zoho Creator) -->
       <div class="qz-screen" id="qz-screen-gate">
         <div class="qz-gate qz-gate-zoho">
-          <iframe id="top3-iframe" aria-label="See your Top 3" title="See your Top 3" height="640" width="100%" frameborder="0" allowTransparency="true" scrolling="auto" style="border:none;height:640px;display:block;" data-src="https://creatorapp.zohopublic.eu/alignmentkey/see-your-top-3/form-embed/Top3_Entry/ZkerMBqEETk65WpAdwseBmmUN52TaafWh0DesaPezTOpzGE3TyxFkuf2BUqzBVG9r2uEC22mPXY9AE3KqdOgHYNwn8Sry682NUUp"></iframe>
+          <iframe id="top3-iframe" aria-label="See your Top 3" title="See your Top 3" height="640" width="966" frameborder="0" allowTransparency="true" scrolling="auto" style="border:none;height:640px;display:block;" data-src="https://creatorapp.zohopublic.eu/alignmentkey/see-your-top-3/form-embed/Top3_Entry/ZkerMBqEETk65WpAdwseBmmUN52TaafWh0DesaPezTOpzGE3TyxFkuf2BUqzBVG9r2uEC22mPXY9AE3KqdOgHYNwn8Sry682NUUp"></iframe>
           <p id="qz-gate-wait" class="qz-gate-note" style="display:none">Loading your results&hellip;</p>
         </div>
       </div>
@@ -712,6 +714,18 @@ function fsqScore(answers) {
     return 'Top 3 Future Skill Signals: ' + result.top3.map(function (t) { return FSQ_SKILLS[t.key].name; }).join(', ') + '.';
   }
 
+
+  /* Scale the fixed-width Zoho Creator form so it always fits without scrollbars */
+  function qzFitTop3() {
+    var f = document.getElementById('top3-iframe');
+    if (!f) return;
+    var g = f.parentElement, FW = 966, FH = 640;
+    var k = Math.min(1, g.clientWidth / FW);
+    f.style.transform = k < 1 ? 'scale(' + k + ')' : '';
+    f.style.marginBottom = k < 1 ? (-(1 - k) * FH) + 'px' : '';
+  }
+  window.addEventListener('resize', qzFitTop3);
+
   function qzOpenGate() {
     try { sessionStorage.setItem(QZ_STORE_KEY, JSON.stringify(result)); } catch (e) {}
     var f = document.getElementById('top3-iframe');
@@ -723,6 +737,7 @@ function fsqScore(answers) {
     f.src = base + '?Quiz_Result=' + encodeURIComponent(qzResultMsg()) +
       '&zc_NextUrl=' + encodeURIComponent(next);
     showScreen('gate');
+    qzFitTop3();
   }
 
   function qzUnlock(email) {
