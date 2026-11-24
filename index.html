@@ -264,9 +264,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .stat-band{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 56px;margin-top:44px;padding-top:34px;border-top:1px solid var(--border);text-align:center}
   .stat-band .b .n{font-weight:700;font-size:32px;color:var(--teal);letter-spacing:-.02em}
   .stat-band .b .t{font-size:13.5px;color:var(--body);margin-top:4px}
-  .stat-band .b-icf .n{display:inline-flex;align-items:center;gap:12px}
-  .stat-band .icf-tile{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:linear-gradient(150deg,var(--teal),var(--deep));padding:4px;flex:0 0 auto}
-  .stat-band .icf-tile img{width:100%;height:auto;display:block}
+  .icf-badge-wrap{display:flex;justify-content:center;margin-top:30px}
+  .icf-badge{display:inline-flex;align-items:center;gap:20px;padding:16px 26px 16px 18px;background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:0 6px 20px rgba(14,110,120,.07);text-align:left;max-width:100%;box-sizing:border-box}
+  .icf-badge img{width:96px;height:auto;flex:0 0 auto;display:block}
+  .icf-badge .ttl{font-weight:600;font-size:15.5px;color:var(--ink);line-height:1.35}
+  .icf-badge .sub{font-size:13.5px;color:var(--body);margin-top:4px}
+  @media(max-width:520px){.icf-badge{gap:14px;padding:14px 16px}.icf-badge img{width:78px}.icf-badge .ttl{font-size:14.5px}}
   @media(max-width:820px){.quotes{grid-template-columns:1fr}}
 
   /* process */
@@ -619,7 +622,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="stat-band reveal">
       <div class="b"><div class="n">41+</div><div class="t">certified coaches</div></div>
       <div class="b"><div class="n">24h</div><div class="t">report delivery</div></div>
-      <div class="b b-icf"><div class="n"><span class="icf-tile"><img src="assets/icf-cce-mark-white.png" alt="ICF Continuing Coach Education (CCE) mark" width="40" height="34" loading="lazy"></span>16</div><div class="t">ICF CCE credits through Level 1 Certification</div></div>
+      <div class="b"><div class="n">16</div><div class="t">ICF CCE credits through Level 1 Certification</div></div>
+    </div>
+    <div class="icf-badge-wrap reveal">
+      <div class="icf-badge">
+        <img src="assets/icf-cce-mark-color.png" alt="ICF Continuing Coach Education (CCE) mark" width="96" height="81" loading="lazy">
+        <div><div class="ttl">PathKEY Level 1 Certification</div><div class="sub">Approved for 16 ICF CCE credits: 11 Core Competency + 5 Resource Development</div></div>
+      </div>
     </div>
   </div>
 </section>
