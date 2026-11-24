@@ -100,6 +100,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .trust-strip{display:flex;flex-wrap:wrap;gap:14px 30px;margin-top:44px;padding-top:24px;border-top:1px solid var(--border);font-size:14px;color:var(--body);font-weight:500}
   .trust-strip span{display:inline-flex;align-items:center;gap:8px}
   .trust-strip .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+  .trust-strip .icf-chip{gap:10px;color:var(--teal);font-weight:600}
+  .icf-tile{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:10px;background:linear-gradient(150deg,var(--teal),var(--deep));padding:4px;flex:0 0 auto}
+  .icf-tile img{width:100%;height:auto;display:block}
+  .comm-visual .icf-row{display:flex;align-items:center;justify-content:space-between;gap:18px}
+  .comm-visual .icf-row img{width:78px;height:auto;flex:0 0 auto}
+  .final-icf{display:inline-flex;align-items:center;gap:14px;margin-top:38px;padding:12px 20px 12px 14px;border:1px solid rgba(255,255,255,.2);border-radius:14px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.9);font-size:14.5px;font-weight:500;text-align:left}
+  .final-icf img{width:58px;height:auto;flex:0 0 auto}
+  @media(max-width:600px){.final-icf{max-width:calc(100vw - 40px);box-sizing:border-box}}
 
   section{padding:82px 0}
   .section-head{max-width:720px;margin-bottom:46px}
@@ -320,7 +328,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a class="btn btn-out" href="find-a-coach.html">Explore Our Coaches</a>
     </div>
     <div class="trust-strip">
-      <span><span class="dot"></span>16 ICF CCE credits</span>
+      <span class="icf-chip"><span class="icf-tile"><img src="assets/icf-cce-mark-white.png" alt="ICF Continuing Coach Education (CCE) mark" width="36" height="30"></span>16 ICF CCE credits</span>
       <span><span class="dot"></span>41+ certified coaches worldwide</span>
       <span><span class="dot"></span>Built for the future of work</span>
     </div>
@@ -417,8 +425,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="big">41+</div>
         <div class="cap">certified coaches already in the network</div>
         <hr/>
-        <div class="big">16</div>
-        <div class="cap">ICF CCE credits earned on certification</div>
+        <div class="icf-row">
+          <div>
+            <div class="big">16</div>
+            <div class="cap">ICF CCE credits earned on certification</div>
+          </div>
+          <img src="assets/icf-cce-mark-white.png" alt="ICF Continuing Coach Education (CCE) mark" width="78" height="66" loading="lazy">
+        </div>
         <hr/>
         <div class="big">1</div>
         <div class="cap">community that has your back — for referrals, delivery, and growth</div>
@@ -583,6 +596,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a class="btn btn-gold" href="upcoming-certifications.html">View Upcoming Cohorts <span class="arrow">→</span></a>
       <a class="btn btn-light" href="#level1">Explore Level 1 Program</a>
       <a class="btn btn-light" href="partner-network.html">Partner Ecosystem</a>
+    </div>
+    <div class="final-icf">
+      <img src="assets/icf-cce-mark-white.png" alt="ICF Continuing Coach Education (CCE) mark" width="58" height="49" loading="lazy">
+      <span>PathKEY Level 1 Certification &middot; 16 ICF CCE credits<br/><span style="opacity:.75;font-size:13px">11 Core Competency + 5 Resource Development</span></span>
     </div>
   </div>
 </section>
