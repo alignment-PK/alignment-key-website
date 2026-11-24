@@ -34,7 +34,7 @@ window.AK_CERTIFICATIONS = [
       },
       {
         "k": "Schedule",
-        "v": "Tuesdays · 19:00 CET"
+        "v": "Mondays · 19:00 CET"
       },
       {
         "k": "Duration",
